@@ -1,0 +1,15 @@
+/**
+* main css of index.html
+*/
+
+.overMain {
+	margin-top: 182px;
+}
+.overMain h1, h2, h3, h4, h5, h6, p, a {
+	text-align: center;
+	color: #34495e;
+}
+.overMain h5 {
+	margin-top: 0;
+	margin-bottom: 2px;
+}
