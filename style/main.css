@@ -2,14 +2,132 @@
 * main css of index.html
 */
 
-.overMain {
-	margin-top: 182px;
+* {
+	font-family: Source Sans Pro,Helvetica Neue,Arial,sans-serif;
+	margin: 0;
+	padding: 0;
 }
-.overMain h1, h2, h3, h4, h5, h6, p, a {
+body,html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+body {
+	overflow-x: hidden;
+}
+.overMain {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+.coverMain {
+	flex: 1;
+}
+.coverMain h1, h2, h3, h4, h5, h6, p, a {
 	text-align: center;
 	color: #34495e;
 }
-.overMain h5 {
+.coverMain h3 {
+	margin-top: 42px;
+	margin-bottom: 24px;
+}
+.coverMain h5 {
 	margin-top: 0;
 	margin-bottom: 2px;
+}
+.coverMain div {
+	display: flex;
+	margin: 0 auto 2px;
+	padding-top: 24px;
+	width: 352px;
+	height: 42px;
+	justify-content: space-between;
+	align-content: center;
+	font-size: 1rem;
+}
+.coverMain div li {
+	list-style-type: none;
+	width: 102px;
+	height: 42px;
+	line-height: 42px;
+	text-align: center;
+	border: 1px solid rgb(66,185,131);
+	border-radius: 14px;
+	cursor: pointer;
+	transition: all .4s;
+}
+.coverMain div li a {
+	transition: color .4s;
+}
+.coverMain div li:hover {
+	color: white;
+	background-color: rgb(66,185,131);
+}
+.coverMain div li:hover a{
+	color: white;
+}
+
+main {
+	font-size: 1rem;
+	display: block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+.sidebar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 20%;
+	height: 100%;
+	border-right: .5px solid #ccc;
+	/*padding-bottom: 34px;*/
+	overflow-y: auto;
+}
+.sidebar h1 {
+	font-weight: normal;
+	font-size: 1.4rem;
+	text-align: center;
+	color: #505d6b;
+}
+.sidebar p {
+	margin-top: 26px;
+}
+.sidebar ul {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	color: #505d6b;
+}
+.sidebar ul a {
+	width: 100%;
+	text-align: left;
+	text-decoration: none;
+	text-indent: 2rem;
+	margin-top: 18px;
+	font-size: .9rem;
+}
+.musicFun {
+	width: 100%;
+	padding-left: 1.2rem;
+}
+.musicFun li {
+	list-style-type: none;
+	width: 100%;
+	cursor: pointer;
+}
+.sidebar ul a:hover {
+	text-decoration: underline;
+}
+.content {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 80%;
+	height: 480px;
+}
+
+#dBottom {
+	margin-bottom: 34px;
 }

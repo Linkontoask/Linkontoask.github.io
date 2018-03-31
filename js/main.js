@@ -2,7 +2,7 @@
 * main javaScript of index.html
 */
 
-(function() {
+function app() {
 	var main = function () {
 		this.name = 'Link'
 		this.point = '.'
@@ -16,7 +16,13 @@
 		},
 		findDocument: function () {
 			this.obj.push(document.querySelector('#mainPoint'))
-			this.updataDocument()
+			this.updataDocument()	// 持续更新动画
+		},
+		getScreen: function () {
+			return {
+				'width': document.body.clientWidth,
+				'height': document.body.scrollHeight
+			}
 		},
 		updataDocument: function () {
 			console.log(this.obj)
@@ -33,4 +39,6 @@
 
 	var app = new main()
 	app.init()
-})()
+}
+
+window.onload = app()
