@@ -15,7 +15,7 @@
 			<div>
 				<a href="#start"><li>Start</li></a>
 				<a href="https://github.com/Linkontoask/radishes" target="_black" title="源码下载"><li>GitHub</li></a>
-				<a href="http://112.74.169.178/#/" target="_black" title="在线观看"><li>Run</li></a>
+				<a href="http://112.74.169.178:8090/#/" target="_black" title="在线观看"><li>Run</li></a>
 			</div>
 		</div>
 		
@@ -27,54 +27,100 @@
 			<h1>网易云(酷狗)音乐</h1>
 			<p>-------------------------------------------</p>
 			<ul>
-				<a href="#/?前提条件">前提条件</a>
-				<a href="#/?下载使用">下载使用</a>
-				<a href="#/?功能说明">功能说明</a>
+				<a href="#前提条件">前提条件</a>
+				<a href="#下载使用">下载使用</a>
+				<a href="#项目描述">项目描述</a>
 				<div class="musicFun">
 					<ul>
-						<a href="#/?顶部"><li>顶部</li></a>
+						<a href="#顶部"><li>顶部</li></a>
 						<div class="musicFun">
 							<ul>
-								<a href="#/?Logo">Logo</a>
-								<a href="#/?控制器">控制器</a>
-								<a href="#/?搜索">搜索</a>
-								<a href="#/?登录">登录</a>
-								<a href="#/?换肤">换肤</a>
+								<a href="#Logo">Logo</a>
+								<a href="#控制器">控制器</a>
+								<a href="#搜索">搜索</a>
+								<a href="#登录">登录</a>
+								<a href="#换肤">换肤</a>
 							</ul>
 						</div>
-						<a href="#/?左边"><li>左边</li></a>
+						<a href="#左边"><li>左边</li></a>
 						<div class="musicFun">
 							<ul>
-								<a href="#/?发现音乐">发现音乐</a>
-								<a href="#/?私人FM">私人FM</a>
-								<a href="#/?MV">MV</a>
-								<a href="#/?朋友">朋友</a>
-								<a href="#/?下载管理">下载管理</a>
-								<a href="#/?我的音乐盘">我的音乐盘</a>
-								<a href="#/?我的(推荐)电台">我的(推荐)电台</a>
-								<a href="#/?我的歌单">我的歌单</a>
-								<a href="#/?歌曲信息">歌曲信息</a>
+								<a href="#发现音乐">发现音乐</a>
+								<a href="#私人FM">私人FM</a>
+								<a href="#MV">MV</a>
+								<a href="#朋友">朋友</a>
+								<a href="#下载管理">下载管理</a>
+								<a href="#我的音乐盘">我的音乐盘</a>
+								<a href="#我的(推荐)电台">我的(推荐)电台</a>
+								<a href="#我的歌单">我的歌单</a>
+								<a href="#歌曲信息">歌曲信息</a>
 							</ul>
 						</div>
-						<a href="#/?右边"><li style="font-weight: bold;">右边</li></a>
-						<a href="#/?底部"><li>底部</li></a>
+						<a href="#右边"><li style="font-weight: bold;">右边</li></a>
+						<a href="#底部"><li>底部</li></a>
 						<div class="musicFun">
 							<ul>
-								<a href="#/?歌曲控制">歌曲控制</a>
-								<a href="#/?进度条">进度条</a>
-								<a href="#/?音量条">音量条</a>
-								<a href="#/?播放顺序">播放顺序</a>
-								<a href="#/?播放列表">播放列表</a>
+								<a href="#歌曲控制">歌曲控制</a>
+								<a href="#进度条">进度条</a>
+								<a href="#音量条">音量条</a>
+								<a href="#播放顺序">播放顺序</a>
+								<a href="#播放列表">播放列表</a>
 							</ul>
 						</div>
 					</ul>
 				</div>
-				<a href="#/?难点归纳">难点归纳</a>
-				<a href="#/?版本迭代" id="dBottom">版本迭代</a>
+				<a href="#难点归纳">难点归纳</a>
+				<a href="#版本迭代" id="dBottom">版本迭代</a>
 			</ul>
 		</aside>
 		<!-- 内容 -->
-		<section class="content"></section>
+		<section class="content">
+			<article class="mark">
+				<h1>网易云(酷狗)音乐</h1>
+				<h2 id="前提条件">前提条件</h2>
+				<p>系统:Windows All</p>
+				<p>环境:Node PHP</p>
+				<h2 id="下载使用">下载使用</h2>
+				<div>
+					<ul>
+						<li>下载项目源代码.<a href="https://github.com/Linkontoask/radishes" target="_black">戳我下载</a></li>
+						<li>下载项目服务器依赖.<a href="https://github.com/Binaryify/NeteaseCloudMusicApi" target="_black">戳我下载</a></li>
+						<li>在服务器依赖项目中使用CMD命令<i>(必须在app.js同级目录)</i><span>set port=8091 & node app.js</span></li>
+						<li>在浏览器输入<span>http://localhost:8091/</span></li>
+						<li>如果在浏览器中看到运行成功的画面,那么服务器搭建成功</li>
+						<li>接下来在项目根目录中输入命令<span>npm run dev</span>或者打开<span>npm run.bat</span></li>
+						<li>等待...成功</li>
+					</ul>
+				</div>
+				<h2 id="项目描述">项目描述</h2>
+				<p>使用前端框架Vue开发的一款Web音乐播放器,模仿网易云音乐布局,结合网易云API和酷狗API,有丰富的交互体验.</p>
+				<h2 id="顶部">顶部</h2>
+				<p>顶部框架栏</p>
+				<h2 id="Logo">Logo</h2>
+				<p>点击刷新页面(需重新登录体验)</p>
+				<h2 id="控制器">控制器</h2>
+				<p>发现音乐界面的前进与后退</p>
+				<h2 id="搜索">搜索</h2>
+				<p>支持单曲,歌手,歌单,视频,歌词搜索</p>
+				<h2 id="登录">登录</h2>
+				<p>点击登录(已登录将显示用户信息,比如粉丝,关注人数...)</p>
+				<h2 id="换肤">换肤</h2>
+				<p>点击弹出换肤窗口,有六中颜色可供选择</p>
+				<h2 id="左边">左边</h2>
+				<p>侧边控制栏.有发现音乐,私人FM,MV,朋友,下载管理,我的音乐盘,我的(推荐)电台,我的(创建)歌单</p>
+				<h2 id="发现音乐">发现音乐</h2>
+				<div>
+					<ul>
+						<li>具有轮播Banner(数据从网易API得到),每日推荐歌单.如果没有登录将显示酷狗最新歌单.</li>
+						<li>歌单.酷狗API中推荐的最新歌单</li>
+						<li>排行榜.酷狗API中各种类型的排行榜(飙升榜,TOP500...)</li>
+						<li>歌手.讲歌手分类,点击进入分类中的歌手,点击歌手进入歌手歌曲界面</li>
+						<li>最新音乐.酷狗API中的最新音乐</li>
+					</ul>
+				</div>
+				<h1>更新中...</h1>
+			</article>
+		</section>
 	</main>
 
 

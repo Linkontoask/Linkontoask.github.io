@@ -2,6 +2,14 @@
 * main css of index.html
 */
 
+::scrollbar{width:6px;height:4px}
+::-webkit-scrollbar{width:6px;height:4px}
+::-webkit-scrollbar-track{background-color: rgb(245,245,247);}
+::-webkit-scrollbar-thumb{background-color: rgb(200,200,200);}
+::-moz-scrollbar{width:6px;height:4px}
+::-moz-scrollbar-track{background-color: rgb(245,245,247);}
+::-moz-scrollbar-thumb{background-color: rgb(200,200,200)}
+
 * {
 	font-family: Source Sans Pro,Helvetica Neue,Arial,sans-serif;
 	margin: 0;
@@ -126,6 +134,57 @@ main {
 	top: 0;
 	width: 80%;
 	height: 480px;
+}
+.mark {
+	position: relative;
+	margin: 0 auto;
+	padding: 0 16px 40px;
+	text-align: left;
+}
+.mark h1 {
+	font-size: 1.8rem;
+	letter-spacing: 2px;
+}
+.mark h2 {
+	text-align: left;
+	padding-top: 24px;
+	padding-bottom: 12px;
+	cursor: pointer;
+}
+.mark h2:hover {
+	text-decoration: underline;
+}
+.mark p {
+	text-align: left;
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+.mark div {
+	padding-left: 16px;
+	background-color: rgb(246,246,246);
+}
+.mark ul li {
+	padding-top: 12px;
+	color: #525252;
+}
+.mark ul li a {
+	padding-left: 120px;
+	color: #0366d6;
+}
+.mark ul li i {
+	font-weight: bold;
+	font-style: normal;
+	color: black;
+}
+.mark ul li span {
+	display: block;
+	height: 46px;
+	line-height: 46px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	text-indent: 12px;
+	color: #525252;
+	background-color: rgb(224, 224, 224);
 }
 
 #dBottom {

@@ -6,17 +6,34 @@ function app() {
 	var main = function () {
 		this.name = 'Link'
 		this.point = '.'
+		this.top = 0
 		this.obj = []
 	}
 
 	main.prototype = {
 		init: function () {
 			console.log(this.name)
+			this.listenScroll()
 			this.findDocument()
 		},
 		findDocument: function () {
 			this.obj.push(document.querySelector('#mainPoint'))
+			this.obj.push(document.querySelector('#start'))
+			this.top = this.obj[1].getBoundingClientRect().height
 			this.updataDocument()	// 持续更新动画
+		},
+		listenScroll: function () {
+			window.onscroll = (e) => {
+				// console.log(e)
+				// console.log(this.getScrollTop())
+				// console.log(this.getScreen().height)
+				let top = this.getScrollTop()
+				if (top >= this.top) {
+					this.obj[1].style.position = 'fixed';
+				} else {
+					this.obj[1].style.position = 'absolute';
+				}
+			}
 		},
 		getScreen: function () {
 			return {
@@ -34,7 +51,16 @@ function app() {
 				count > 6 ? str = '' : str += that.point
 				that.obj[0].innerHTML = str
 			}, 400)
-		}
+		},
+		getScrollTop: function () {   
+		    var scrollTop=0;   
+		    if(document.documentElement&&document.documentElement.scrollTop){   
+		        scrollTop=document.documentElement.scrollTop;   
+		    }else if(document.body){   
+		        scrollTop=document.body.scrollTop;   
+		    }   
+		    return scrollTop;   
+		}  
 	}
 
 	var app = new main()
