@@ -84,6 +84,7 @@ main {
 	height: 100%;
 }
 .sidebar {
+	display: block;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -133,7 +134,6 @@ main {
 	right: 0;
 	top: 0;
 	width: 80%;
-	height: 480px;
 }
 .mark {
 	position: relative;
@@ -144,6 +144,10 @@ main {
 .mark h1 {
 	font-size: 1.8rem;
 	letter-spacing: 2px;
+}
+.mark h3 {
+	text-align: left;
+	margin: 12px 0;
 }
 .mark h2 {
 	text-align: left;
@@ -168,7 +172,7 @@ main {
 	color: #525252;
 }
 .mark ul li a {
-	padding-left: 120px;
+	padding-left: 110px;
 	color: #0366d6;
 }
 .mark ul li i {
@@ -189,4 +193,14 @@ main {
 
 #dBottom {
 	margin-bottom: 34px;
+}
+
+@media screen and (max-width: 800px) {
+	.sidebar {
+		display: none;
+	}
+	.content {
+		left: 0;
+		width: 100%;
+	}
 }
