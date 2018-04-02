@@ -8,12 +8,12 @@ function app() {
 		this.point = '.'
 		this.top = 0
 		this.obj = []
-		this.jump = null
 	}
 
 	main.prototype = {
 		init: function () {
 			console.log(this.name)
+			this.scrollTo(decodeURI(window.location.href.split('#')[1]))
 			this.findDocument()
 			if (/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) { //移动端
 			    console.log('mobile')
@@ -28,8 +28,6 @@ function app() {
 			this.obj.push(document.querySelector('#mainPoint'))
 			this.obj.push(document.querySelector('#start'))
 			this.obj.push(document.querySelector('.content'))
-			this.jump = document.querySelectorAll('a')
-			console.log(this.jump)
 			this.onJump()
 			this.top = this.obj[1].getBoundingClientRect().height
 			this.updataDocument()	// 持续更新动画
@@ -51,7 +49,6 @@ function app() {
 			}
 		},
 		updataDocument: function () {
-			console.log(this.obj)
 			var str = ''
 				that = this
 				count = 0
@@ -71,7 +68,6 @@ function app() {
 		    return scrollTop;   
 		},
 		scrollTo: function (id) {
-			console.log($('#'+id))
 			$("html,body").animate({scrollTop: $('#'+id).offset().top}, 300);
 		},
 		// 事件委托
@@ -79,10 +75,7 @@ function app() {
 			let that = this
 			document.querySelector('.sidebar').onclick = function (e) {
 				if (e.target.localName === 'a') {
-					// console.log(e.target.localName)
-					console.log(e.target.text)
 					that.scrollTo(e.target.text)
-					// console.log(e)
 				}
 			}
 			document.querySelector('.coverMain div a').onclick = function (e) {
@@ -90,7 +83,6 @@ function app() {
 			}
 			document.querySelector('.mark').onclick = function (e) {
 				if (e.target.localName === 'h2') {
-					console.log(e.target.id)
 					that.scrollTo(e.target.id)
 				}
 			}
