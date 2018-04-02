@@ -6,6 +6,7 @@ function app() {
 	var main = function () {
 		this.name = 'Link'
 		this.point = '.'
+		this.click = 'click'
 		this.top = 0
 		this.obj = []
 	}
@@ -20,6 +21,7 @@ function app() {
 			    this.obj[1].style.display = 'none';
 			    this.obj[2].style.left = '0';
 			    this.obj[2].style.width = '100%';
+			    this.click = 'touchstart'
 			} else {
 				this.listenScroll()
 			}
@@ -73,19 +75,20 @@ function app() {
 		// 事件委托
 		onJump: function () {
 			let that = this
-			document.querySelector('.sidebar').onclick = function (e) {
+			$('.sidebar').on(that.click, function (e) {
 				if (e.target.localName === 'a') {
 					that.scrollTo(e.target.text)
 				}
-			}
-			document.querySelector('.coverMain div a').onclick = function (e) {
-				that.scrollTo('start')
-			}
-			document.querySelector('.mark').onclick = function (e) {
+			})
+			$('.coverMain div a li').on(that.click, function (e) {
+				that.click === 'click' ? that.scrollTo('start') : that.scrollTo('startMark')
+			})
+			$('.mark').on(that.click, function (e) {
 				if (e.target.localName === 'h2') {
+					console.log(that.click)
 					that.scrollTo(e.target.id)
 				}
-			}
+			})
 		}
 	}
 
