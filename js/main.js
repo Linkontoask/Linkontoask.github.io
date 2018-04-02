@@ -14,7 +14,7 @@ function app() {
 	main.prototype = {
 		init: function () {
 			console.log(this.name)
-			this.scrollTo(decodeURI(window.location.href.split('#')[1]))
+			window.location.href.split('#').length !== 1 ? this.scrollTo(decodeURI(window.location.href.split('#')[1]) || 'start') : null
 			this.findDocument()
 			if (/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) { //移动端
 			    console.log('mobile')
