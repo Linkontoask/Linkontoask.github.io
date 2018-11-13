@@ -1,9 +1,8 @@
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<style>
 			*{margin: 0;padding: 0}
-			html,body {width: 100%;height: 100%;}
+			html,body {width: 100%;height: 100%;font-size: 20px}
 			canvas {
 				position: fixed;
 			    bottom: 20px;
@@ -66,7 +65,23 @@
             draw(img);
         };
 
+        function toggleFullScreen() {
+		  var doc = window.document;
+		  var docEl = doc.documentElement;
+
+		  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+		  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+		  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+		    requestFullScreen.call(docEl);
+		  }
+		  else {
+		    cancelFullScreen.call(doc);
+		  }
+		}
+
         canvas.onclick = function () {
+        	toggleFullScreen();
         	var ctx = canvas.getContext('2d');
         	// ctx.clearRect(0, 0, canvas.width, canvas.height);
         	var old = {w: document.body.clientWidth, h : document.body.clientHeight},
@@ -108,7 +123,7 @@
         }
 
         function close() {
-        	
+        	toggleFullScreen();
         	viewImg.style.width = pos.w / scalc + 'px';
         	viewImg.style.height = pos.h / scalc + 'px';
         	viewImg.style.left = '20px';
