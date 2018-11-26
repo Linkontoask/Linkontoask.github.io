@@ -1,0 +1,227 @@
+<html>
+	<head>
+		<style>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+			*{margin: 0;padding: 0}
+			html,body {width: 100%;height: 100%;font-size: 20px}
+			canvas {
+				position: fixed;
+			    bottom: 20px;
+			    left: 20px;
+			    transition: all .4s;
+			    z-index: 2;
+			}
+			.middle {
+				position: absolute;
+				bottom: 20px;
+			    left: 20px;
+				transition: all .4s;
+				z-index: 2;
+			}
+			.control {
+				padding: 2rem;
+			}
+			label {
+				display: flex;
+    			align-items: center;
+    			padding: 12px;
+    			font-size: 2rem;
+    			border-bottom: 1px solid;
+			}
+			input {
+				border: 1px solid #eee;
+				width: 70%;
+    			font-size: 2.2rem;
+				margin: 12px;
+				padding: 12px;
+			}
+			input:focus {
+				outline: none;
+			}
+		</style>
+		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div class="control">
+			<h1>操作</h1>
+			
+			<label for="q">图像<input type="file" id="q" accept="image/png,image/jpg,image/jpeg"></label>
+			<label for="a">名字<input type="text" id="a" placeholder="你的名字"></label>
+			<label for="b">待付款<input type="number" id="b" max=99 min=10 placeholder="范围(10-99)"></label>
+			<label for="c">待发货<input type="number" id="c" max=99 min=10 placeholder="范围(10-99)"></label>
+			<label for="d">待收货<input type="number" id="d" max=99 min=10 placeholder="范围(10-99)"></label>
+			<label for="e">评价<input type="number" id="e" max=99 min=10 placeholder="范围(10-99)"></label>
+			<label for="f">退款/售后<input type="number" id="f" max=99 min=10 placeholder="范围(10-99)"></label>
+		</div>
+		<canvas id="canvas" width="750" height="1334"></canvas>
+	</body>
+	<script type="text/javascript">
+        var img = new Image(),
+        	scalc = 1.5, 
+        	pos = {w:750,h:1334};
+        var viewImg = null, isRenad = false;
+        img.src = 'https://linkontoask.github.io/demo/rec.png';
+        img.setAttribute('crossOrigin', 'anonymous');
+        img.onload = function() {
+            draw(img);
+        };
+
+        function toggleFullScreen() {
+		  var doc = window.document;
+		  var docEl = doc.documentElement;
+
+		  var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+		  var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+		  if(!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+		    requestFullScreen.call(docEl);
+		  }
+		  else {
+		    cancelFullScreen.call(doc);
+		  }
+		}
+
+        canvas.onclick = function () {
+        	// toggleFullScreen();
+        	var ctx = canvas.getContext('2d');
+        	// ctx.clearRect(0, 0, canvas.width, canvas.height);
+        	var old = {w: document.body.clientWidth, h : document.body.clientHeight},
+        		s = 1;
+        	/*canvas.width = old.w / s;
+        	canvas.height = old.h / s;
+        	ctx.drawImage(img, 0, 0, old.w / s, old.w / s * old.h / old.w);*/
+
+
+        	if (!isRenad) viewImg = document.createElement('img');
+        	else viewImg.style.display = 'block'
+        	viewImg.src = canvas.toDataURL('image/png');
+        	viewImg.id = 'viewImg';
+        	viewImg.style.width = pos.w / scalc + 'px';
+        	viewImg.style.height = pos.h / scalc + 'px';
+        	viewImg.classList.add('middle');
+        	if (!isRenad) document.body.appendChild(viewImg);
+        	setTimeout(function(){
+        		viewImg.style.width = old.w / s + 'px';
+        		viewImg.style.height = old.h / s + 'px';
+	        	/*viewImg.style.left = old.w / 2 - old.w / s / 2 + 'px';
+	        	viewImg.style.bottom = old.h / 2 - old.h / s / 2 + 'px';*/
+	        	viewImg.style.left = '0px';
+	        	viewImg.style.bottom = '0px';
+	        	document.querySelector('#viewImg').onclick = close;
+        	}, 0)
+        	isRenad = true;
+        
+
+        	canvas.style.display = 'none'
+        }
+
+        function draw(img) {
+            var canvas = document.getElementById('canvas');
+            canvas.width = pos.w / scalc;
+            canvas.height = pos.h / scalc;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, pos.w / scalc, pos.w / scalc * pos.h / pos.w);
+        }
+
+        function close() {
+        	// toggleFullScreen();
+        	viewImg.style.width = pos.w / scalc + 'px';
+        	viewImg.style.height = pos.h / scalc + 'px';
+        	viewImg.style.left = '20px';
+	        viewImg.style.bottom = '20px';
+	        setTimeout(function(){
+	        	viewImg.style.display = 'none'
+		        canvas.style.display = 'block';
+		        // draw(img)
+	        }, 400)
+	       
+        }
+
+        function file(e) {
+        	console.log(e.target.files[0])
+        	var reader = new FileReader();
+            reader.onload = function() {
+                var img = new Image();
+                img.src = reader.result;
+                img.onload = function() {
+                	circleImg(document.getElementById('canvas').getContext('2d'), img, 27, 68, 30)
+                    var w = img.width,
+                        h = img.height;
+                    let canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+                    $(canvas).attr({
+                        width: w,
+                        height: h
+                    });
+                    ctx.drawImage(img, 0, 0, w, h);
+                    var base64 = canvas.toDataURL(e.target.files[0].type, 1);
+                    var result = {
+                        url: window.URL.createObjectURL(e.target.files[0]),
+                        base64: base64,
+                    };
+                    console.log(result);
+                }
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        }
+
+        function circleImg(ctx, img, x, y, r) {
+		    ctx.save();
+		    var d =2 * r;
+		    var cx = x + r;
+		    var cy = y + r;
+		    ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+		    ctx.clip();
+		    ctx.drawImage(img, x, y, d, d);
+		    ctx.restore();
+		}
+
+		function Text(value) {
+			value = document.querySelector('#a').value;
+			var ctx = document.getElementById('canvas').getContext('2d')
+			var grd=ctx.createLinearGradient(0,0,318,0);
+			grd.addColorStop(0,"rgb(250,127,90)");
+			grd.addColorStop(1,"rgb(245,110,59)");
+			ctx.fillStyle=grd;
+			ctx.fillRect(110, 56, 318, 40);
+			ctx.font = "normal 22px Arial";
+			ctx.fillStyle = "#fff";
+			for(var i = 0; i < value.length; i++) {
+                ctx.fillText(value[i], 26 * i + 110, 86);
+            }
+		}
+
+		function setNumber(value, left, self) {
+			console.log(value, left)
+			if (value >= 99) {
+				value = '99'
+				self.value = 99;
+			}
+			if (value <= 10) {
+				value = '10'
+			}
+			var ctx = document.getElementById('canvas').getContext('2d');
+			ctx.beginPath();
+			ctx.fillStyle = "#fff";
+			ctx.arc(left + 9, 419, 9, 0, 2 * Math.PI);
+			ctx.closePath();
+			ctx.fill();
+			ctx.font = "normal 14px Arial";
+			ctx.fillStyle = "rgb(255,96,0)";
+			for(var i = 0; i < value.length; i++) {
+                ctx.fillText(value[i], 8 * i + left, 423);
+            }
+		}
+
+
+        document.querySelector('#q').onchange = file;
+        document.querySelector('#a').oninput = Text;
+        document.querySelector('#b').oninput = function(){setNumber(this.value, 78, this);}
+        document.querySelector('#c').oninput = function(){setNumber(this.value, 78 + 90 * 1, this);}
+        document.querySelector('#d').oninput = function(){setNumber(this.value, 78 + 90 * 2, this);}
+        document.querySelector('#e').oninput = function(){setNumber(this.value, 78 + 90 * 3 - 3, this);}
+        document.querySelector('#f').oninput = function(){setNumber(this.value, 78 + 90 * 4, this);}
+        
+	</script>
+</html>
