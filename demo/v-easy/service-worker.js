@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.7be1809847b396a840daba1d83b26708.js"
+  "precache-manifest.8aca279e73e262af0678044d4f455d92.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "v-easy"});
