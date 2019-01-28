@@ -8,15 +8,15 @@ self.__precacheManifest = [
     "url": "link.ico"
   },
   {
-    "revision": "ed74994fd4adfd956741",
-    "url": "js/chunk-vendors.1dd62a53.js"
+    "revision": "e281fba9af629e763d5d",
+    "url": "js/chunk-vendors.9f676e93.js"
   },
   {
-    "revision": "581f8052ac93608d1617",
-    "url": "js/app.b1c7e51d.js"
+    "revision": "98005ba74cd20cd7ef72",
+    "url": "js/app.d7171374.js"
   },
   {
-    "revision": "585d3f12dea1fd0a8beb44a775db8af9",
+    "revision": "82abb7a6e776d774cb8d9e88b1266d6e",
     "url": "index.html"
   },
   {
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "fonts/fontawesome-webfont.b06871f2.ttf"
   },
   {
-    "revision": "581f8052ac93608d1617",
-    "url": "css/app.503e85c2.css"
+    "revision": "98005ba74cd20cd7ef72",
+    "url": "css/app.fcb5c21b.css"
   }
 ];
