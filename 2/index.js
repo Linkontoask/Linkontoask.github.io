@@ -68,6 +68,7 @@ start.addEventListener('touchend', async e => {
     start.classList.add('bounceOut')
 
     audio.play()
+    video.play()
     
     await check()
 
