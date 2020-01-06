@@ -34,7 +34,7 @@ const sleep = (ms) => new Promise((r, j) => {
 const check = () => {
     return new Promise(async (resolve, reject) => {
         let read = true
-        const step = 1
+        let step = 1
         while(read) {
             await sleep(600)
             if (['video', 'audio'].every(item => Read[item])) {
