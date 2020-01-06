@@ -10,6 +10,7 @@ const video = document.querySelector('video')
 
 let status = false
 let width = 10
+let Read = {}
 
 const handle = (e) => {
     status = !status
@@ -33,17 +34,22 @@ const sleep = (ms) => new Promise((r, j) => {
 const check = () => {
     return new Promise(async (resolve, reject) => {
         let read = true
+        const step = 1
         while(read) {
             await sleep(600)
-            const d = Math.random()
-            if (d > 0.92 || width >= 100) {
+            if (['video', 'audio'].every(item => Read[item])) {
                 read = false
 
                 progress.style.width = '100%'
 
                 await sleep(500)
             } else {
-                progress.style.width = (width+=Math.random() * 10 | 0 + 1) + '%'
+                if (Read.audio) {
+                    step = 5
+                }
+                if (width < 94) {
+                    progress.style.width = (width+=Math.random() * step | 0 + 1) + '%'
+                }
             }
         }
         resolve()
@@ -78,4 +84,12 @@ controls.addEventListener('animationend', e => {
 
 document.addEventListener('DOMContentLoaded', e => {
     
+})
+
+video.addEventListener('canplay', e => {
+    Read.video = true
+})
+
+audio.addEventListener('canplay', e => {
+    Read.audio = true
 })
