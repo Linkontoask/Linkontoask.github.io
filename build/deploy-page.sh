@@ -4,4 +4,4 @@ cd blog
 
 yarn
 
-hexo generate
+yarn build
