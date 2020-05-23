@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="坚持每天进步一点">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Link">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Link 记录过去，展望未来"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="坚持每天进步一点" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Link 记录过去，展望未来"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website" />
+    
+
+    <!--Page Cover-->
+    
+
+    
+        <meta name="twitter:card" content="summary" />
+    
+    
+    
+
+    <!-- Title -->
+    
+    <title>Link 记录过去，展望未来</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+            <h1 id="main-title" class="title">Link 记录过去，展望未来</h1>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/">
+                贪吃蛇
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-05-23</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p><img src="https://pic3.zhimg.com/v2-5d0519553991b60fb0d5b44d65813067_r.jpg" alt="预览"></p>
+<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
+<li>基本玩法</li>
+<li>音乐控制（速度）</li>
+<li>支持升级</li>
+<li>移动端支持</li>
+</ul>
+<p><img src="https://pic1.zhimg.com/v2-d0169445601156e730351ea0ac294db8_b.webp" alt="动图"></p>
+<p><a href="https://linkorg.club/www/music-snake/">直接开始试玩</a></p>
+<p>我们从功能点开始分批讲解其中用到的技术，希望阅读完这篇文章，你也能写一个贪吃蛇来满足自己写游戏的欲望。（我的出发点就是无聊）。</p>
+<h4 id="基本玩法"><a href="#基本玩法" class="headerlink" title="基本玩法"></a>基本玩法</h4><p>实现步骤：</p>
+<ul>
+<li>第一步，写一个绘制类，用来绘制蛇和食物</li>
+</ul>
+<p><img src="https://pic3.zhimg.com/80/v2-19b34fe29e4f0a53b545e5d00cf14b82_720w.jpg" alt=""></p>
+<ul>
+<li>第二步，实现蛇类。包括升级，颜色。这里的类只是蛇的一节身体，更多的身体组合成一条蛇</li>
+</ul>
+<p><img src="https://pic4.zhimg.com/80/v2-b59375a022108f6ca4e0c3543b5630b3_720w.jpg" alt=""></p>
+<ul>
+<li>第三步，实现食物类</li>
+</ul>
+<p><img src="https://pic2.zhimg.com/80/v2-deb693b54eefdbbab7f5275463440ff1_720w.jpg" alt=""></p>
+<p>以上都写完基本的东西已经准备好了，然后就是如何把一节身体组合在一起，形成一条蛇，然后还要运动，吃食物。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-0d3382021618838e7dbde13a72e47610_720w.jpg" alt=""></p>
+<p><img src="https://pic3.zhimg.com/80/v2-a0da186d8d72f59ecffc2e9412b52fa6_720w.jpg" alt=""></p>
+<p>最后当然还有一个控制器类</p>
+<p><img src="https://pic3.zhimg.com/80/v2-03420dea3a4e799beaa400961881499e_720w.jpg" alt=""></p>
+<p>以上就已经实现了蛇的基本玩法。具体代码可以转到仓库<a href="https://github.com/Linkontoask/music-snake" target="_blank" rel="noopener">https://github.com/Linkontoask/music-snake</a></p>
+
+        </div>
+    
+
+</div>
+            
+        </section>
+    </div>
+</div>
+
+
+
+
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    是一个相信选择大于努力的人，更新一些关于工作的博客
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/">贪吃蛇</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/Linkontoask" target="_blank" rel="noopener">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://linkorg.club">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:link19970507@gmail.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Link. All right reserved | Design & Hexo
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

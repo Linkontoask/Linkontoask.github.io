@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0d34b4"],{"5bc4":function(e,t,n){"use strict";n.r(t);var s=function(){var e=this,t=e.$createElement,n=e._self._c||t;return n("section",{staticClass:"hk-bus-server-layout"},[n("router-view")],1)},r=[],c={name:"server"},u=c,a=n("2877"),o=Object(a["a"])(u,s,r,!1,null,"15f983bc",null);t["default"]=o.exports}}]);
-//# sourceMappingURL=chunk-2d0d34b4.402f5b3c.js.map

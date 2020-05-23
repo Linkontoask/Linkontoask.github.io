@@ -1,6 +1,0 @@
-# HTTrack Website Copier Cookie File
-# This file format is compatible with Netscape cookies
-.justeasy.cn	TRUE	/	FALSE	1999999999	PHPSESSID	6o3o0thrctm1bnk4a9q8jrjg36
-vr.justeasy.cn	TRUE	/	FALSE	1999999999	route	1d125318a1bd67b2a54e96a5364c22dc
-hm.baidu.com	TRUE	/	FALSE	1999999999	HMACCOUNT	BA8E047C6FA512F1
-
