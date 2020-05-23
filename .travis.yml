@@ -7,7 +7,7 @@ branches:
   only:
     - master # build master branch only
 script:
-  -sh build/deploy-page.sh
+  - sh build/deploy-page.sh
 deploy:
   provider: pages
   skip-cleanup: true
