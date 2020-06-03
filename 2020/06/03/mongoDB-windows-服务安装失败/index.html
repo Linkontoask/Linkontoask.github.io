@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Link 记录过去，展望未来"/>
+        <meta property="og:title" content="mongoDB-windows-服务安装失败"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -47,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>Archives - Link 记录过去，展望未来</title>
+    <title>mongoDB-windows-服务安装失败 - Link 记录过去，展望未来</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -112,9 +112,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -122,34 +120,58 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">Archives</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2020/06/03/mongoDB-windows-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">
-        <span class="archive-date">
-            Jun 2020
-        </span>
-        mongoDB-windows-服务安装失败
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/06/03/mongoDB-windows-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">
+                mongoDB-windows-服务安装失败
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-06-03</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h3 id="安装环境："><a href="#安装环境：" class="headerlink" title="安装环境："></a>安装环境：</h3><ul>
+<li>windows 10/7</li>
+</ul>
+<p>错误截图</p>
+<p><img src="https://img-blog.csdn.net/20180831183856795?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIwMDg0MTAx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt=""></p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><p>删除<code>安装目录/bin/mongod.cfg</code>下的<code>mp:</code>配置，然后重试即可。</p>
+<p>最终配置文件为：</p>
+<p><img src="https://i.loli.net/2020/06/03/baAi138BLgOdMSF.png" alt="image.png"></p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/">
-        <span class="archive-date">
-            May 2020
-        </span>
-        贪吃蛇
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
+
 
 </div>
 
