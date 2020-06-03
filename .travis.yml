@@ -5,7 +5,7 @@ node_js:
 cache: npm
 branches:
   only:
-    - master # build master branch only
+    - 2020-05-23 # build master branch only
 script:
   - sh build/deploy-page.sh
 deploy:
@@ -14,5 +14,5 @@ deploy:
   github-token: $GH_TOKEN
   keep-history: true
   on:
-    branch: 2020-05-23
+    branch: master
   local-dir: blog/public
