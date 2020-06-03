@@ -10,7 +10,7 @@ tags:
 
 错误截图
 
-![](https://img-blog.csdn.net/20180831183856795?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIwMDg0MTAx/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+![image.png](https://i.loli.net/2020/06/03/kStmp6Xbi1nT3IY.png)
 
 ### 解决方案：
 
