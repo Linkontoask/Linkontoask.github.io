@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Link 记录过去，展望未来"/>
+        <meta property="og:title" content="promise-allsettled"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -47,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>Archives: 2020/5 - Link 记录过去，展望未来</title>
+    <title>promise-allsettled - Link 记录过去，展望未来</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -112,9 +112,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -122,52 +120,64 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">2020/5</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2020/06/10/cmder-ev/">
-        <span class="archive-date">
-            Jun 2020
-        </span>
-        cmder-ev
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/06/11/promise-allsettled/">
+                promise-allsettled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-06-11</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h3 id="Promise-allSettled-的应用场景与原理"><a href="#Promise-allSettled-的应用场景与原理" class="headerlink" title="Promise.allSettled 的应用场景与原理"></a>Promise.allSettled 的应用场景与原理</h3><p>MDN: 该<code>Promise.allSettled()</code>方法返回一个在所有给定的promise已被决议或被拒绝后决议的promise，并带有一个对象数组，每个对象表示对应的promise结果。</p>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p><code>allSettled</code>只有一个状态，他会等待所有promise完成或拒绝后<code>有序</code>的调用then方法，参数为一个任务的结果和状态。</p>
+<p>返回结果示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"status"</span>: <span class="string">"fulfilled"</span>,</span><br><span class="line">    <span class="attr">"value"</span>: <span class="string">"success"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"status"</span>: <span class="string">"rejected"</span>,</span><br><span class="line">    <span class="attr">"reason"</span>: <span class="string">"failed"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它和<code>all</code>最大的不同在于，<code>all</code>只要其中一个任务发生错误会立即返回，<code>all</code>没办法捕获到执行成功的结果。</p>
+<p>在一些非关联性的任务下，可以并发去执行并取得结果进行后续处理。比如，爬取一些页面数据的时候，每个页面都是独立的个体，互不关联，我们可以先抓取需要爬取的页面集合，进行处理后并发去执行请求或者其它异步任务。</p>
+<p><code>allSettled</code>目前处于TC39第四阶段草案，具体的实现进度可以参考<a href="https://test262.report/features/Promise.allSettled" target="_blank" rel="noopener">这里</a></p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>和<code>all</code>相同，都返回一个Promise，只是发生错误的时候并不会抛出异常，而会依次收集这个错误，在等待所有任务执行完成后返回。</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/Promise/">#Promise</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2020/06/03/mongoDB-windows-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">
-        <span class="archive-date">
-            Jun 2020
-        </span>
-        mongoDB-windows-服务安装失败
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/06/11/promise-allsettled/">
-        <span class="archive-date">
-            Jun 2020
-        </span>
-        promise-allsettled
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/">
-        <span class="archive-date">
-            May 2020
-        </span>
-        贪吃蛇
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
+
 
 </div>
 

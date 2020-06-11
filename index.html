@@ -132,6 +132,41 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/06/11/promise-allsettled/">
+                promise-allsettled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-06-11</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="Promise-allSettled-的应用场景与原理"><a href="#Promise-allSettled-的应用场景与原理" class="headerlink" title="Promise.allSettled 的应用场景与原理"></a>Promise.allSettled 的应用场景与原理</h3><p>MDN: 该<code>Promise.allSettled()</code>方法返回一个在所有给定的promise已被决议或被拒绝后决议的promise，并带有一个对象数组，每个对象表示对应的promise结果。</p>
+<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p><code>allSettled</code>只有一个状态，他会等待所有promise完成或拒绝后<code>有序</code>的调用then方法，参数为一个任务的结果和状态。</p>
+<p>返回结果示例：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"status"</span>: <span class="string">"fulfilled"</span>,</span><br><span class="line">    <span class="attr">"value"</span>: <span class="string">"success"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"status"</span>: <span class="string">"rejected"</span>,</span><br><span class="line">    <span class="attr">"reason"</span>: <span class="string">"failed"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它和<code>all</code>最大的不同在于，<code>all</code>只要其中一个任务发生错误会立即返回，<code>all</code>没办法捕获到执行成功的结果。</p>
+<p>在一些非关联性的任务下，可以并发去执行并取得结果进行后续处理。比如，爬取一些页面数据的时候，每个页面都是独立的个体，互不关联，我们可以先抓取需要爬取的页面集合，进行处理后并发去执行请求或者其它异步任务。</p>
+<p><code>allSettled</code>目前处于TC39第四阶段草案，具体的实现进度可以参考<a href="https://test262.report/features/Promise.allSettled" target="_blank" rel="noopener">这里</a></p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>和<code>all</code>相同，都返回一个Promise，只是发生错误的时候并不会抛出异常，而会依次收集这个错误，在等待所有任务执行完成后返回。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/06/10/cmder-ev/">
                 cmder-ev
             </a>
@@ -275,6 +310,10 @@
     <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
         <h2>Recent Posts</h2>
         <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/06/11/promise-allsettled/">promise-allsettled</a>
+            </li>
             
             <li>
                 <a class="footer-post" href="/2020/06/10/cmder-ev/">cmder-ev</a>
