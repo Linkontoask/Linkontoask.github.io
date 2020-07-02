@@ -132,6 +132,73 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/07/02/shell%E4%B8%ADexpr%E6%9B%BF%E6%8D%A2%E8%AF%AD%E6%B3%95/">
+                shell中expr替换语法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-07-02</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="expr"><a href="#expr" class="headerlink" title="expr"></a>expr</h1><p><code>expr</code>命令是一个手工命令行计数器，用于在UNIX/LINUX下求表达式变量的值，一般用于整数值，也可用于字符串。</p>
+<p><code>expr</code>有以下几种算术：</p>
+<ul>
+<li>计算字串长度<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr</span></span><br><span class="line">expr length <span class="string">"this is a test"</span></span><br><span class="line"><span class="comment"># 替换语法</span></span><br><span class="line">str=<span class="string">"this is a test"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#str&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>抓取字串<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr</span></span><br><span class="line">expr substr <span class="string">"this is a test"</span> 3 5</span><br><span class="line"><span class="comment"># 替换语法</span></span><br><span class="line">str=<span class="string">"this is a test"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;str:2:5&#125;</span> <span class="comment"># 注意是从0开始</span></span><br></pre></td></tr></table></figure></li>
+<li>抓取第一个字符数字串出现的位置<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr</span></span><br><span class="line">expr index <span class="string">"sarasara"</span> a</span><br><span class="line"><span class="comment"># 替换语法</span></span><br><span class="line">str=<span class="string">"this is a test"</span></span><br><span class="line">awk -v a=<span class="string">"<span class="variable">$str</span>"</span> -v b=<span class="string">"a"</span> <span class="string">'BEGIN&#123;print index(a,b)&#125;'</span></span><br></pre></td></tr></table></figure></li>
+<li>整数运算<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr</span></span><br><span class="line">expr 14 % 9</span><br><span class="line"><span class="comment"># 替换语法</span></span><br><span class="line">result=$(( 14 % 9 ))</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$result</span>"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/07/02/shell%E4%B8%ADif%E7%9A%84%E7%94%A8%E6%B3%95/">
+                shell中if的用法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-07-02</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h1><p>在部署项目时，会遇到一些环境问题，或者在一些重复性的劳动时，可以使用<code>shell</code>帮我们完成这些事情。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>create.sh</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">page=<span class="variable">$1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$page</span>"</span> != <span class="string">""</span> ]; <span class="keyword">then</span></span><br><span class="line">    npx hexo new <span class="string">"<span class="variable">$page</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"please file name"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>输入<code>sh create.sh page</code>后会使用npx临时安装一个hexo.cmd，创建一个<code>page.md</code>在<code>hexo</code>项目中。<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo</a><br>如果是输入的<code>sh create.sh</code>，没有在后面跟上参数，那么将会输入一个<code>please file name</code>。</p>
+<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">a=10</span><br><span class="line">b=20</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$a</span> == <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"a is equal to b"</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$a</span> -gt <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"a is greater than b"</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$a</span> -lt <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"a is less than b"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"None of the condition met"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/06/29/pillow/">
                 pillow
             </a>
@@ -470,19 +537,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2020/07/02/shell%E4%B8%ADexpr%E6%9B%BF%E6%8D%A2%E8%AF%AD%E6%B3%95/">shell中expr替换语法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/07/02/shell%E4%B8%ADif%E7%9A%84%E7%94%A8%E6%B3%95/">shell中if的用法</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2020/06/29/pillow/">pillow</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2020/06/11/promise-allsettled/">promise-allsettled</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/06/10/cmder-ev/">cmder-ev</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/06/03/mongoDB-windows-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">mongoDB-windows-服务安装失败</a>
             </li>
             
         </ul>

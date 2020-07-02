@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="pillow"/>
+        <meta property="og:title" content="shell中expr替换语法"/>
     
 
     <!--Open Graph Description-->
@@ -47,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>pillow - Link 记录过去，展望未来</title>
+    <title>shell中expr替换语法 - Link 记录过去，展望未来</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -129,13 +129,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2020/06/29/pillow/">
-                pillow
+            <a href="/2020/07/02/shell%E4%B8%ADexpr%E6%9B%BF%E6%8D%A2%E8%AF%AD%E6%B3%95/">
+                shell中expr替换语法
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2020-06-29</span>
+                <span class="date">2020-07-02</span>
             
             
             
@@ -148,143 +148,25 @@
         
 
         <!-- Post Content -->
-        <h1 id="Pillow"><a href="#Pillow" class="headerlink" title="Pillow"></a>Pillow</h1><p>在<code>python2</code>中使用<code>pillow</code>时注意<code>pillow</code>的版本，具体版本支持列表如下：<a href="https://pillow.readthedocs.io/en/stable/installation.html#notes" target="_blank" rel="noopener">官网</a></p>
-<table>
-<thead>
-<tr>
-<th>Python</th>
-<th>3.8</th>
-<th>3.7</th>
-<th>3.6</th>
-<th>3.5</th>
-<th>3.4</th>
-<th>3.3</th>
-<th>3.2</th>
-<th>2.7</th>
-<th>2.6</th>
-<th>2.5</th>
-<th>2.4</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Pillow &gt;= 7</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 6.2.1 - 6.2.2</td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 6.0 - 6.2.0</td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 5.2 - 5.4</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 5.0 - 5.1</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 4</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 2 - 3</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow &lt; 2</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-</tbody></table>
-<p>如果发生如下错误<br><code>ImportError: No module named Image</code><br>请参考解决方案 <a href="https://stackoverflow.com/questions/31016085/importerror-no-module-named-image-importerror-no-module-named-pil-python/31035763" target="_blank" rel="noopener">stackoverflow</a></p>
+        <h1 id="expr"><a href="#expr" class="headerlink" title="expr"></a>expr</h1><p><code>expr</code>命令是一个手工命令行计数器，用于在UNIX/LINUX下求表达式变量的值，一般用于整数值，也可用于字符串。</p>
+<p><code>expr</code>有以下几种算术：</p>
+<ul>
+<li>计算字串长度<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr</span></span><br><span class="line">expr length <span class="string">"this is a test"</span></span><br><span class="line"><span class="comment"># 替换语法</span></span><br><span class="line">str=<span class="string">"this is a test"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#str&#125;</span></span><br></pre></td></tr></table></figure></li>
+<li>抓取字串<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr</span></span><br><span class="line">expr substr <span class="string">"this is a test"</span> 3 5</span><br><span class="line"><span class="comment"># 替换语法</span></span><br><span class="line">str=<span class="string">"this is a test"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;str:2:5&#125;</span> <span class="comment"># 注意是从0开始</span></span><br></pre></td></tr></table></figure></li>
+<li>抓取第一个字符数字串出现的位置<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr</span></span><br><span class="line">expr index <span class="string">"sarasara"</span> a</span><br><span class="line"><span class="comment"># 替换语法</span></span><br><span class="line">str=<span class="string">"this is a test"</span></span><br><span class="line">awk -v a=<span class="string">"<span class="variable">$str</span>"</span> -v b=<span class="string">"a"</span> <span class="string">'BEGIN&#123;print index(a,b)&#125;'</span></span><br></pre></td></tr></table></figure></li>
+<li>整数运算<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># expr</span></span><br><span class="line">expr 14 % 9</span><br><span class="line"><span class="comment"># 替换语法</span></span><br><span class="line">result=$(( 14 % 9 ))</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$result</span>"</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 
     </div>
 
     
 
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/shell/">#shell</a>
+        </div>
     
 
     <!-- Comments -->
