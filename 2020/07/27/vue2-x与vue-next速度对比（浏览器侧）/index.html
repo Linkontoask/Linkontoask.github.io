@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="n2n搭建一个局域网"/>
+        <meta property="og:title" content="vue2.x与vue-next速度对比（浏览器侧）"/>
     
 
     <!--Open Graph Description-->
@@ -47,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>n2n搭建一个局域网 - Link 记录过去，展望未来</title>
+    <title>vue2.x与vue-next速度对比（浏览器侧） - Link 记录过去，展望未来</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -129,13 +129,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">
-                n2n搭建一个局域网
+            <a href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">
+                vue2.x与vue-next速度对比（浏览器侧）
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2020-07-07</span>
+                <span class="date">2020-07-27</span>
             
             
             
@@ -148,56 +148,30 @@
         
 
         <!-- Post Content -->
-        <h1 id="n2n-搭建局域网（最主要还是可以打游戏）"><a href="#n2n-搭建局域网（最主要还是可以打游戏）" class="headerlink" title="n2n 搭建局域网（最主要还是可以打游戏）"></a>n2n 搭建局域网（最主要还是可以打游戏）</h1><p>我们可以利用固定的公网IP，在内部搭建一个虚拟的网络服务，用我们的电脑连上去即可组成局域网。</p>
-<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><ul>
-<li>可访问的公网IP以及<code>linux</code>服务器</li>
-<li>一台或多台客户端，能正常上网即可（游戏好友）</li>
-</ul>
-<h3 id="大致步骤如下"><a href="#大致步骤如下" class="headerlink" title="大致步骤如下"></a>大致步骤如下</h3><ul>
-<li>docker容器安装<code>supernode</code><ul>
-<li>具体命令 <code>docker run --rm -d -p 5645:5645/udp supermock/supernode</code></li>
-</ul>
-</li>
-<li>非docker容器安装<code>supernode</code><ul>
-<li><code>git clone https://github.com/ntop/n2n.git</code></li>
-<li><code>./autogen.sh</code></li>
-<li><code>./configure</code></li>
-<li><code>sudo make install</code></li>
-</ul>
-</li>
-<li>更多系统安装<code>n2n</code>请移步<a href="https://www.sayers.top/delete/n2nvpn.html" target="_blank" rel="noopener">https://www.sayers.top/delete/n2nvpn.html</a></li>
-<li>在客户端上安装<code>n2n client</code><ul>
-<li><strong>windows</strong><ul>
-<li>下载<a href="http://www.vpnhosting.cz/n2nguien.exe" target="_blank" rel="noopener">http://www.vpnhosting.cz/n2nguien.exe</a></li>
-<li>配置服务器IP地址以及端口</li>
-<li>配置局域网IP，用户名和密码。用户名和密码用于组，也就是说其他人使用相同的用户名和密码就可以组建局域网。<code>advanced</code>中有对应的版本设置，v1版本是明文传输数据，所以你们在安装服务器<code>supernode</code>时自己区分用哪一个版本。</li>
-<li>确定后会弹出窗口让你重启程序，需要在右下角右键n2n，选择quit。</li>
-<li>再次打开<code>n2ngui.exe</code>时会让你同意是否用于公用网络代表服务已经成功启动。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>具体配置如图<br><img src="https://i.loli.net/2020/07/07/OLBK3q4zyaXDGf9.png" alt="1594114053_1_.jpg"></p>
-<p>成功后会启动一个虚拟适配器，IP为<code>n2ngui.exe</code>设置的IP<br><img src="https://i.loli.net/2020/07/07/oyKE3dlXf42s8IC.png" alt="1594114161_1_.jpg"></p>
-<h3 id="部分问题"><a href="#部分问题" class="headerlink" title="部分问题"></a>部分问题</h3><ul>
-<li>ping不通局域网其它机器<ul>
-<li>请检查目标机器的防火墙设置。</li>
-</ul>
-</li>
-<li>连接不上服务器<ul>
-<li>请用管理员权限，进入到n2n安装目录，运行<code>edge -a 192.168.5.2 -c link -k link -l xxx.xxx.xxx.xxx:xxxx</code>，如果发生错误会发生<code>Registering with supernode</code>错误，如果是v2版本则会提示<code>WARNING:Supernode not responding - moving to 0 of 1</code></li>
-<li>请检查服务器端的防火墙端口是否打开，<code>UDP</code>哦！</li>
-</ul>
-</li>
-</ul>
-<p>部分参考连接：  </p>
+        <h1 id="vue2-x与vue-next速度对比（浏览器侧）"><a href="#vue2-x与vue-next速度对比（浏览器侧）" class="headerlink" title="vue2.x与vue-next速度对比（浏览器侧）"></a>vue2.x与vue-next速度对比（浏览器侧）</h1><p>测试环境：</p>
 <ul>
-<li><a href="https://github.com/ntop/n2n" target="_blank" rel="noopener">https://github.com/ntop/n2n</a></li>
-<li><a href="https://hub.docker.com/r/supermock/supernode" target="_blank" rel="noopener">https://hub.docker.com/r/supermock/supernode</a></li>
-<li><a href="http://www.lucktu.com/archives/751.html" target="_blank" rel="noopener">http://www.lucktu.com/archives/751.html</a></li>
-<li><a href="https://www.sayers.top/delete/n2nvpn.html" target="_blank" rel="noopener">https://www.sayers.top/delete/n2nvpn.html</a></li>
+<li>Chrome 84.0.4147.89 (x64)</li>
+<li>windows10</li>
 </ul>
+<p>测试步骤：</p>
+<ul>
+<li>使用内置的<code>h</code>渲染。</li>
+<li>使用五层VNode，只包裹文本节点，遍历10000次。</li>
+</ul>
+<ul>
+<li><p>vue2.x 测试代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#root'</span>,</span><br><span class="line">    render(h) &#123;</span><br><span class="line">        <span class="keyword">let</span> index = <span class="number">5</span>, old = h(<span class="string">'div'</span>, <span class="literal">null</span>, <span class="string">'Link'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (index &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            old = h(<span class="string">'div'</span>, <span class="literal">null</span>, [old])</span><br><span class="line">            index--</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> a = <span class="built_in">Array</span>(<span class="number">10000</span>).fill(<span class="number">0</span>).map(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> old</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> h(<span class="string">'div'</span>, &#123;&#125;, a)</span><br><span class="line">    &#125;,</span><br><span class="line">    created() &#123;</span><br><span class="line">        <span class="built_in">console</span>.time(<span class="string">'render'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'render'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vue-next 测试代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = createApp(&#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.time(<span class="string">'render'</span>)</span><br><span class="line">      onMounted(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'render'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> index = <span class="number">5</span>, old = h(<span class="string">'div'</span>, &#123;&#125;, <span class="string">'Link'</span>)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">while</span> (index &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        old = h(<span class="string">'div'</span>, &#123;&#125;, old)</span><br><span class="line">        index--</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> a = <span class="built_in">Array</span>(<span class="number">10000</span>).fill(<span class="number">0</span>).map(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> old</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> h(<span class="string">'div'</span>, &#123;&#125;, a)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">&#125;).mount(<span class="string">'#root'</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h2><ul>
+<li>vue2.x <code>331.082275390625ms</code></li>
+<li>vue-next <code>267.6630859375ms</code></li>
+</ul>
+<p>注意：以上数据仅为平均数据（5层VNode），只能说明<code>vue</code>版本升级后能够提高渲染速度。</p>
 
     </div>
 
@@ -206,7 +180,7 @@
     
         <div class="post-tags">
             <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/n2n-nat-linux/">#n2n nat linux</a>
+            <a href="/tags/vue/">#vue</a>
         </div>
     
 

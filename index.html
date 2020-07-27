@@ -132,6 +132,56 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">
+                vue2.x与vue-next速度对比（浏览器侧）
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-07-27</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="vue2-x与vue-next速度对比（浏览器侧）"><a href="#vue2-x与vue-next速度对比（浏览器侧）" class="headerlink" title="vue2.x与vue-next速度对比（浏览器侧）"></a>vue2.x与vue-next速度对比（浏览器侧）</h1><p>测试环境：</p>
+<ul>
+<li>Chrome 84.0.4147.89 (x64)</li>
+<li>windows10</li>
+</ul>
+<p>测试步骤：</p>
+<ul>
+<li>使用内置的<code>h</code>渲染。</li>
+<li>使用五层VNode，只包裹文本节点，遍历10000次。</li>
+</ul>
+<ul>
+<li><p>vue2.x 测试代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#root'</span>,</span><br><span class="line">    render(h) &#123;</span><br><span class="line">        <span class="keyword">let</span> index = <span class="number">5</span>, old = h(<span class="string">'div'</span>, <span class="literal">null</span>, <span class="string">'Link'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (index &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            old = h(<span class="string">'div'</span>, <span class="literal">null</span>, [old])</span><br><span class="line">            index--</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> a = <span class="built_in">Array</span>(<span class="number">10000</span>).fill(<span class="number">0</span>).map(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> old</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> h(<span class="string">'div'</span>, &#123;&#125;, a)</span><br><span class="line">    &#125;,</span><br><span class="line">    created() &#123;</span><br><span class="line">        <span class="built_in">console</span>.time(<span class="string">'render'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'render'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vue-next 测试代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = createApp(&#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.time(<span class="string">'render'</span>)</span><br><span class="line">      onMounted(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'render'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> index = <span class="number">5</span>, old = h(<span class="string">'div'</span>, &#123;&#125;, <span class="string">'Link'</span>)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">while</span> (index &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        old = h(<span class="string">'div'</span>, &#123;&#125;, old)</span><br><span class="line">        index--</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> a = <span class="built_in">Array</span>(<span class="number">10000</span>).fill(<span class="number">0</span>).map(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> old</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> h(<span class="string">'div'</span>, &#123;&#125;, a)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">&#125;).mount(<span class="string">'#root'</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h2><ul>
+<li>vue2.x <code>331.082275390625ms</code></li>
+<li>vue-next <code>267.6630859375ms</code></li>
+</ul>
+<p>注意：以上数据仅为平均数据（5层VNode），只能说明<code>vue</code>版本升级后能够提高渲染速度。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">
                 一步一步实现vue2.x版本的IP输入框
             </a>
@@ -672,66 +722,24 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/">
-                贪吃蛇
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-05-23</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p><img src="https://pic3.zhimg.com/v2-5d0519553991b60fb0d5b44d65813067_r.jpg" alt="预览"></p>
-<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
-<li>基本玩法</li>
-<li>音乐控制（速度）</li>
-<li>支持升级</li>
-<li>移动端支持</li>
-</ul>
-<p><img src="https://pic1.zhimg.com/v2-d0169445601156e730351ea0ac294db8_b.webp" alt="动图"></p>
-<p><a href="https://linkorg.club/www/music-snake/">直接开始试玩</a></p>
-<p>我们从功能点开始分批讲解其中用到的技术，希望阅读完这篇文章，你也能写一个贪吃蛇来满足自己写游戏的欲望。（我的出发点就是无聊）。</p>
-<h4 id="基本玩法"><a href="#基本玩法" class="headerlink" title="基本玩法"></a>基本玩法</h4><p>实现步骤：</p>
-<ul>
-<li>第一步，写一个绘制类，用来绘制蛇和食物</li>
-</ul>
-<p><img src="https://pic3.zhimg.com/80/v2-19b34fe29e4f0a53b545e5d00cf14b82_720w.jpg" alt=""></p>
-<ul>
-<li>第二步，实现蛇类。包括升级，颜色。这里的类只是蛇的一节身体，更多的身体组合成一条蛇</li>
-</ul>
-<p><img src="https://pic4.zhimg.com/80/v2-b59375a022108f6ca4e0c3543b5630b3_720w.jpg" alt=""></p>
-<ul>
-<li>第三步，实现食物类</li>
-</ul>
-<p><img src="https://pic2.zhimg.com/80/v2-deb693b54eefdbbab7f5275463440ff1_720w.jpg" alt=""></p>
-<p>以上都写完基本的东西已经准备好了，然后就是如何把一节身体组合在一起，形成一条蛇，然后还要运动，吃食物。</p>
-<p><img src="https://pic1.zhimg.com/80/v2-0d3382021618838e7dbde13a72e47610_720w.jpg" alt=""></p>
-<p><img src="https://pic3.zhimg.com/80/v2-a0da186d8d72f59ecffc2e9412b52fa6_720w.jpg" alt=""></p>
-<p>最后当然还有一个控制器类</p>
-<p><img src="https://pic3.zhimg.com/80/v2-03420dea3a4e799beaa400961881499e_720w.jpg" alt=""></p>
-<p>以上就已经实现了蛇的基本玩法。具体代码可以转到仓库<a href="https://github.com/Linkontoask/music-snake" target="_blank" rel="noopener">https://github.com/Linkontoask/music-snake</a></p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
 
 
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="disabled" href="/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="" href="/page/2/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -756,6 +764,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">vue2.x与vue-next速度对比（浏览器侧）</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">一步一步实现vue2.x版本的IP输入框</a>
             </li>
             
@@ -765,10 +777,6 @@
             
             <li>
                 <a class="footer-post" href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">n2n搭建一个局域网</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/07/02/shell%E4%B8%ADexpr%E6%9B%BF%E6%8D%A2%E8%AF%AD%E6%B3%95/">shell中expr替换语法</a>
             </li>
             
         </ul>
