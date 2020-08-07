@@ -132,6 +132,72 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/06/10/cmder-ev/">
+                cmder-ev
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-06-10</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="Cmder中无法识别pip命令的原因"><a href="#Cmder中无法识别pip命令的原因" class="headerlink" title="Cmder中无法识别pip命令的原因"></a>Cmder中无法识别pip命令的原因</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>在系统环境变量中，使用<code>%VAR%</code>类型引用变量会导致cmder不识别。</p>
+<h4 id="具体原因"><a href="#具体原因" class="headerlink" title="具体原因"></a>具体原因</h4><p>猜测：可能是因为<code>cmder</code>环境加载顺序。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><ul>
+<li>1，改用全路径的形式重新添加到<code>path</code>中即可。</li>
+<li>2，也可以把cmder添加到环境变量中的顶部。</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/06/03/mongoDB-windows-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">
+                mongoDB-windows-服务安装失败
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-06-03</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="安装环境："><a href="#安装环境：" class="headerlink" title="安装环境："></a>安装环境：</h3><ul>
+<li>windows 10/7</li>
+</ul>
+<p>错误截图</p>
+<p><img src="https://i.loli.net/2020/06/03/kStmp6Xbi1nT3IY.png" alt="image.png"></p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><p>删除<code>安装目录/bin/mongod.cfg</code>下的<code>mp:</code>配置，然后重试即可。</p>
+<p>最终配置文件为：</p>
+<p><img src="https://i.loli.net/2020/06/03/baAi138BLgOdMSF.png" alt="image.png"></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/">
                 贪吃蛇
             </a>
@@ -224,19 +290,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2020/08/07/%E7%94%A8Docker%E9%83%A8%E7%BD%B2sentry%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">用Docker部署sentry的几种方式</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/07/30/%E4%BD%BF%E7%94%A8webpack%E8%BF%90%E8%A1%8Cvue3%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%E7%9A%84%E5%B7%A5%E4%BD%9C/">使用webpack运行vue3需要准备的工作</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">vue2.x与vue-next速度对比（浏览器侧）</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">一步一步实现vue2.x版本的IP输入框</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/07/08/centos%E4%B8%ADservice%E7%9A%84%E9%85%8D%E7%BD%AE-%E8%B8%A9%E5%9D%91/">centos中service的配置-踩坑</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">n2n搭建一个局域网</a>
             </li>
             
         </ul>

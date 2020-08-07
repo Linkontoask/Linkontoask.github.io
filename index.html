@@ -132,6 +132,103 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/08/07/%E7%94%A8Docker%E9%83%A8%E7%BD%B2sentry%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">
+                用Docker部署sentry的几种方式
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-08-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="用Docker部署sentry的几种方式"><a href="#用Docker部署sentry的几种方式" class="headerlink" title="用Docker部署sentry的几种方式"></a>用Docker部署sentry的几种方式</h1><p><code>sentry</code>是什么呢？我在Github上找到了这个答案。<br>Real-time crash reporting for your web apps, mobile apps, and games.</p>
+<p>市场中有很多类似的解决方案，为什么要选择 <code>sentry</code> 来做为我们的应用程序BUG检测的解决方案。</p>
+<ul>
+<li>开源</li>
+<li>社区比较完善</li>
+<li>云上有免费额度</li>
+</ul>
+<h2 id="第一种，使用官方的-onpremise"><a href="#第一种，使用官方的-onpremise" class="headerlink" title="第一种，使用官方的 onpremise"></a>第一种，使用官方的 <code>onpremise</code></h2><p><a href="https://github.com/getsentry/onpremise" target="_blank" rel="noopener">onpremise github</a></p>
+<p>运行sentry之前，你需要满足一下环境。</p>
+<ul>
+<li>保证你的服务器内存大于2G</li>
+<li>Docker 17.05.0+</li>
+<li>Compose 1.23.0+</li>
+</ul>
+<p>如果你都满足了，那么接下来就是开始安装了。</p>
+<ul>
+<li>我们将项目clone下来。<br><code>git clone git@github.com:getsentry/onpremise.git</code></li>
+<li>运行<code>install.sh</code><br><code>bash install.sh</code></li>
+<li>使用<code>docker-compoes</code>后台运行容器<br><code>docker-compoes up -d</code></li>
+</ul>
+<p>至此，请使用<code>IP:9000</code>连接进行访问，我们可以正常访问sentry的后台。</p>
+<p>但是你会发现，<strong>用户名和密码</strong>在哪里？接下来，我们需要创建，我们键入<code>docker-compose run --rm web upgrade</code>，按照提示输入用户名和密码。</p>
+<h2 id="第二种，使用命令行的形式部署"><a href="#第二种，使用命令行的形式部署" class="headerlink" title="第二种，使用命令行的形式部署"></a>第二种，使用命令行的形式部署</h2><p>我们找到Docker的HUB，<a href="https://hub.docker.com/_/sentry/" target="_blank" rel="noopener">sentry hub</a>，然后我们按照上面的操作步骤下来，不过注意的是，执行第5步的时候没有将9000端口映射出来，我们需要稍微变更一下。</p>
+<ul>
+<li><code>docker run -d --name sentry-redis redis</code></li>
+<li><code>docker run -d --name sentry-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=sentry postgres</code></li>
+<li><code>docker run --rm sentry config generate-secret-key</code> （保存这里生成的key）</li>
+<li><code>docker run -it --rm -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry upgrade</code> （这里会提示你输入用户名/邮箱和密码）</li>
+<li><code>docker run -d --name my-sentry -p 9000:9000 -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-redis:redis --link sentry-postgres:postgres sentry</code> （注意-p参数）</li>
+<li><code>docker run -d --name sentry-cron -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run cron</code></li>
+<li><code>docker run -d --name sentry-worker-1 -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></li>
+</ul>
+<p>接下来访问<code>IP:9000</code>，输入你第4步键入的邮箱和密码即可登录后台管理系统。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/07/30/%E4%BD%BF%E7%94%A8webpack%E8%BF%90%E8%A1%8Cvue3%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%E7%9A%84%E5%B7%A5%E4%BD%9C/">
+                使用webpack运行vue3需要准备的工作
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-07-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="使用webpack运行vue3需要准备的工作"><a href="#使用webpack运行vue3需要准备的工作" class="headerlink" title="使用webpack运行vue3需要准备的工作"></a>使用webpack运行vue3需要准备的工作</h1><p>vue-next已经在rc阶段，周边社区已经基本完善，等待最后发布一个稳定的版本即可投入在小项目中使用。</p>
+<h2 id="准备哪些webpack插件？"><a href="#准备哪些webpack插件？" class="headerlink" title="准备哪些webpack插件？"></a>准备哪些webpack插件？</h2><ul>
+<li>HtmlWebpackPlugin<br>做前端项目最基本的一个html载体。</li>
+<li>vue-loader@next<br>编译.vue文件的插件，需要安装next版本。</li>
+<li>vue@next<br>vue3的rc版，和vue2最大的不同就是分离了不同的功能包，比如可以分开导入reactivate、compiler-core。</li>
+<li>babel<br>可以使用最新的语法，有很多插件可以帮助我们提高开发效率。</li>
+<li>ts-loader<br>支持typescript语法</li>
+</ul>
+<p>准备一个babel插件以支持jsx</p>
+<ul>
+<li>@ant-design-vue/babel-plugin-jsx</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">
                 vue2.x与vue-next速度对比（浏览器侧）
             </a>
@@ -656,72 +753,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/06/10/cmder-ev/">
-                cmder-ev
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-06-10</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="Cmder中无法识别pip命令的原因"><a href="#Cmder中无法识别pip命令的原因" class="headerlink" title="Cmder中无法识别pip命令的原因"></a>Cmder中无法识别pip命令的原因</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>在系统环境变量中，使用<code>%VAR%</code>类型引用变量会导致cmder不识别。</p>
-<h4 id="具体原因"><a href="#具体原因" class="headerlink" title="具体原因"></a>具体原因</h4><p>猜测：可能是因为<code>cmder</code>环境加载顺序。</p>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><ul>
-<li>1，改用全路径的形式重新添加到<code>path</code>中即可。</li>
-<li>2，也可以把cmder添加到环境变量中的顶部。</li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/06/03/mongoDB-windows-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">
-                mongoDB-windows-服务安装失败
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-06-03</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="安装环境："><a href="#安装环境：" class="headerlink" title="安装环境："></a>安装环境：</h3><ul>
-<li>windows 10/7</li>
-</ul>
-<p>错误截图</p>
-<p><img src="https://i.loli.net/2020/06/03/kStmp6Xbi1nT3IY.png" alt="image.png"></p>
-<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><p>删除<code>安装目录/bin/mongod.cfg</code>下的<code>mp:</code>配置，然后重试即可。</p>
-<p>最终配置文件为：</p>
-<p><img src="https://i.loli.net/2020/06/03/baAi138BLgOdMSF.png" alt="image.png"></p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -764,19 +795,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2020/08/07/%E7%94%A8Docker%E9%83%A8%E7%BD%B2sentry%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">用Docker部署sentry的几种方式</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/07/30/%E4%BD%BF%E7%94%A8webpack%E8%BF%90%E8%A1%8Cvue3%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%E7%9A%84%E5%B7%A5%E4%BD%9C/">使用webpack运行vue3需要准备的工作</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">vue2.x与vue-next速度对比（浏览器侧）</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">一步一步实现vue2.x版本的IP输入框</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/07/08/centos%E4%B8%ADservice%E7%9A%84%E9%85%8D%E7%BD%AE-%E8%B8%A9%E5%9D%91/">centos中service的配置-踩坑</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">n2n搭建一个局域网</a>
             </li>
             
         </ul>

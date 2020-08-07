@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Link 记录过去，展望未来"/>
+        <meta property="og:title" content="用Docker部署sentry的几种方式"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -47,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>Archives - Link 记录过去，展望未来</title>
+    <title>用Docker部署sentry的几种方式 - Link 记录过去，展望未来</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -112,9 +112,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -122,133 +120,88 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">Archives</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2020/07/08/centos%E4%B8%ADservice%E7%9A%84%E9%85%8D%E7%BD%AE-%E8%B8%A9%E5%9D%91/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        centos中service的配置-踩坑
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/08/07/%E7%94%A8Docker%E9%83%A8%E7%BD%B2sentry%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">
+                用Docker部署sentry的几种方式
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-08-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="用Docker部署sentry的几种方式"><a href="#用Docker部署sentry的几种方式" class="headerlink" title="用Docker部署sentry的几种方式"></a>用Docker部署sentry的几种方式</h1><p><code>sentry</code>是什么呢？我在Github上找到了这个答案。<br>Real-time crash reporting for your web apps, mobile apps, and games.</p>
+<p>市场中有很多类似的解决方案，为什么要选择 <code>sentry</code> 来做为我们的应用程序BUG检测的解决方案。</p>
+<ul>
+<li>开源</li>
+<li>社区比较完善</li>
+<li>云上有免费额度</li>
+</ul>
+<h2 id="第一种，使用官方的-onpremise"><a href="#第一种，使用官方的-onpremise" class="headerlink" title="第一种，使用官方的 onpremise"></a>第一种，使用官方的 <code>onpremise</code></h2><p><a href="https://github.com/getsentry/onpremise" target="_blank" rel="noopener">onpremise github</a></p>
+<p>运行sentry之前，你需要满足一下环境。</p>
+<ul>
+<li>保证你的服务器内存大于2G</li>
+<li>Docker 17.05.0+</li>
+<li>Compose 1.23.0+</li>
+</ul>
+<p>如果你都满足了，那么接下来就是开始安装了。</p>
+<ul>
+<li>我们将项目clone下来。<br><code>git clone git@github.com:getsentry/onpremise.git</code></li>
+<li>运行<code>install.sh</code><br><code>bash install.sh</code></li>
+<li>使用<code>docker-compoes</code>后台运行容器<br><code>docker-compoes up -d</code></li>
+</ul>
+<p>至此，请使用<code>IP:9000</code>连接进行访问，我们可以正常访问sentry的后台。</p>
+<p>但是你会发现，<strong>用户名和密码</strong>在哪里？接下来，我们需要创建，我们键入<code>docker-compose run --rm web upgrade</code>，按照提示输入用户名和密码。</p>
+<h2 id="第二种，使用命令行的形式部署"><a href="#第二种，使用命令行的形式部署" class="headerlink" title="第二种，使用命令行的形式部署"></a>第二种，使用命令行的形式部署</h2><p>我们找到Docker的HUB，<a href="https://hub.docker.com/_/sentry/" target="_blank" rel="noopener">sentry hub</a>，然后我们按照上面的操作步骤下来，不过注意的是，执行第5步的时候没有将9000端口映射出来，我们需要稍微变更一下。</p>
+<ul>
+<li><code>docker run -d --name sentry-redis redis</code></li>
+<li><code>docker run -d --name sentry-postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_USER=sentry postgres</code></li>
+<li><code>docker run --rm sentry config generate-secret-key</code> （保存这里生成的key）</li>
+<li><code>docker run -it --rm -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry upgrade</code> （这里会提示你输入用户名/邮箱和密码）</li>
+<li><code>docker run -d --name my-sentry -p 9000:9000 -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-redis:redis --link sentry-postgres:postgres sentry</code> （注意-p参数）</li>
+<li><code>docker run -d --name sentry-cron -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run cron</code></li>
+<li><code>docker run -d --name sentry-worker-1 -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry run worker</code></li>
+</ul>
+<p>接下来访问<code>IP:9000</code>，输入你第4步键入的邮箱和密码即可登录后台管理系统。</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/docker-sentry/">#docker sentry</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2020/06/10/cmder-ev/">
-        <span class="archive-date">
-            Jun 2020
-        </span>
-        cmder-ev
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/06/03/mongoDB-windows-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">
-        <span class="archive-date">
-            Jun 2020
-        </span>
-        mongoDB-windows-服务安装失败
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        n2n搭建一个局域网
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/06/29/pillow/">
-        <span class="archive-date">
-            Jun 2020
-        </span>
-        pillow
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/06/11/promise-allsettled/">
-        <span class="archive-date">
-            Jun 2020
-        </span>
-        promise-allsettled
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/07/02/shell%E4%B8%ADexpr%E6%9B%BF%E6%8D%A2%E8%AF%AD%E6%B3%95/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        shell中expr替换语法
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/07/02/shell%E4%B8%ADif%E7%9A%84%E7%94%A8%E6%B3%95/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        shell中if的用法
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        vue2.x与vue-next速度对比（浏览器侧）
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/07/30/%E4%BD%BF%E7%94%A8webpack%E8%BF%90%E8%A1%8Cvue3%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%E7%9A%84%E5%B7%A5%E4%BD%9C/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        使用webpack运行vue3需要准备的工作
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/08/07/%E7%94%A8Docker%E9%83%A8%E7%BD%B2sentry%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">
-        <span class="archive-date">
-            Aug 2020
-        </span>
-        用Docker部署sentry的几种方式
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/">
-        <span class="archive-date">
-            May 2020
-        </span>
-        贪吃蛇
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        一步一步实现vue2.x版本的IP输入框
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
+
 
 </div>
 
