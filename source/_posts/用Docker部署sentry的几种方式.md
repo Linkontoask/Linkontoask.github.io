@@ -38,6 +38,9 @@ Real-time crash reporting for your web apps, mobile apps, and games.
 
 但是你会发现，**用户名和密码**在哪里？接下来，我们需要创建，我们键入`docker-compose run --rm web upgrade`，按照提示输入用户名和密码。
 
+`--rm` 代表运行完成后删除容器，仅此运行一次。
+参数`web`指`yml`里容器的名字，相对应命令是`docker run -it --rm -e SENTRY_SECRET_KEY='<secret-key>' --link sentry-postgres:postgres --link sentry-redis:redis sentry upgrade`
+
 
 ## 第二种，使用命令行的形式部署
 
