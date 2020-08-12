@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Link 记录过去，展望未来"/>
+        <meta property="og:title" content="在Vue中使用sentry"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -47,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>n2n nat linux - Link 记录过去，展望未来</title>
+    <title>在Vue中使用sentry - Link 记录过去，展望未来</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -112,9 +112,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -122,25 +120,58 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">#n2n nat linux</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        n2n搭建一个局域网
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/08/07/%E5%9C%A8Vue%E4%B8%AD%E4%BD%BF%E7%94%A8sentry/">
+                在Vue中使用sentry
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-08-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="在Vue中如何使用sentry？"><a href="#在Vue中如何使用sentry？" class="headerlink" title="在Vue中如何使用sentry？"></a>在Vue中如何使用sentry？</h1><p>sentry支持多个平台，在新建项目的时候可以发现支持数十种平台。以vue-next项目为例</p>
+<p>在入口引入<code>@sentry/browser</code>和<code>@sentry/integrations</code>这两个库，<code>raven-js</code>主要是做自定义上传</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Sentry <span class="keyword">from</span> <span class="string">'@sentry/browser'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Integrations <span class="keyword">from</span> <span class="string">'@sentry/integrations'</span></span><br><span class="line"><span class="keyword">import</span> Raven <span class="keyword">from</span> <span class="string">'raven-js'</span></span><br><span class="line"><span class="keyword">import</span> &#123;createApp, h&#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> APP <span class="keyword">from</span> <span class="string">'./APP.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = createApp(&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> h(APP)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.mount(<span class="string">'#app'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> configSentry = &#123;</span><br><span class="line">  dsn: <span class="string">'&lt;dsn&gt;'</span>,</span><br><span class="line">  integrations: [<span class="keyword">new</span> Integrations.Vue(&#123; <span class="attr">Vue</span>: app, <span class="attr">attachProps</span>: <span class="literal">true</span> &#125;)],</span><br><span class="line">  debug: <span class="literal">true</span>,</span><br><span class="line">  beforeSend(event, hint) &#123;</span><br><span class="line">    <span class="keyword">if</span> (event.exception) &#123;</span><br><span class="line">      Sentry.showReportDialog(&#123; <span class="attr">eventId</span>: event.event_id &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> event;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">  <span class="keyword">delete</span> configSentry.debug</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Sentry.init(configSentry)</span><br><span class="line"></span><br><span class="line">Raven.config(<span class="string">'&lt;dsn&gt;'</span>)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/vue-sentry/">#vue sentry</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
         </section>
+
     </div>
 </div>
+
 
 </div>
 

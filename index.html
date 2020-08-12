@@ -132,6 +132,144 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/08/10/docker%E4%B8%8D%E5%90%8C%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">
+                docker不同容器中的网络通信
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-08-10</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="docker不同容器中的网络通信"><a href="#docker不同容器中的网络通信" class="headerlink" title="docker不同容器中的网络通信"></a>docker不同容器中的网络通信</h1><p>在docker中我们可以借助<code>network</code>这个子级命令，它提供容器之间的通信，分为以下5种驱动模式。</p>
+<ul>
+<li>bridge: 默认的网络驱动模式。如果不指定驱动程序，bridge 便会作为默认的网络驱动模式。当应用程序运行在需要通信的独立容器 (standalone containers) 中时，通常会选择 bridge 模式。</li>
+<li>host：移除容器和 Docker 宿主机之间的网络隔离，并直接使用主机的网络。host 模式仅适用于 Docker 17.06+。</li>
+<li>overlay：overlay 网络将多个 Docker 守护进程连接在一起，并使集群服务能够相互通信。您还可以使用 overlay 网络来实现 swarm 集群和独立容器之间的通信，或者不同 Docker 守护进程上的两个独立容器之间的通信。该策略实现了在这些容器之间进行操作系统级别路由的需求。</li>
+<li>macvlan：Macvlan 网络允许为容器分配 MAC 地址，使其显示为网络上的物理设备。 Docker 守护进程通过其 MAC 地址将流量路由到容器。对于希望直连到物理网络的传统应用程序而言，使用 macvlan 模式一般是最佳选择，而不应该通过 Docker 宿主机的网络进行路由。</li>
+<li>none：对于此容器，禁用所有联网。通常与自定义网络驱动程序一起使用。none 模式不适用于集群服务。</li>
+</ul>
+<p>配置实例：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">mongo:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">mongo</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过<code>mongo</code>这个网络驱动，为不同容器提供网络通信。</p>
+<p>docker-compose.yml</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3.8'</span></span><br><span class="line"><span class="attr">networks:</span></span><br><span class="line">  <span class="attr">mongo:</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">mongo</span></span><br><span class="line">    <span class="attr">driver:</span> <span class="string">bridge</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">db:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mongo</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">27017</span><span class="string">:27017</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mongo</span></span><br><span class="line">  <span class="attr">wait:</span></span><br><span class="line">    <span class="attr">build:</span> <span class="string">.</span></span><br><span class="line">    <span class="attr">networks:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">mongo</span></span><br><span class="line">    <span class="attr">depends_on:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">db</span></span><br><span class="line">    <span class="attr">command:</span> <span class="string">/bin/sh</span> <span class="string">wait.sh</span></span><br></pre></td></tr></table></figure>
+<p>在yml配置文件中，我们配置了一个wait容器和db容器，他们使用<code>mongo</code>网络环境。</p>
+<p>下面是<code>Dockerfile</code>配置文件，基于<code>alpine</code>（<a href="https://alpinelinux.org/" target="_blank" rel="noopener">Alpine Linux</a> is a Linux distribution built around <a href="https://www.musl-libc.org/" target="_blank" rel="noopener">musl libc</a> and <a href="https://www.busybox.net/" target="_blank" rel="noopener">BusyBox</a>）<br>Dockerfile</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine</span><br><span class="line"></span><br><span class="line">WORKDIR &#x2F;app</span><br><span class="line"></span><br><span class="line">ADD wait.sh &#x2F;app</span><br></pre></td></tr></table></figure>
+
+<p><code>wait.sh</code>就是让脚本暂停，方便我们bash时进行操作。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/usr/bin/env bash</span></span><br><span class="line"></span><br><span class="line">sleep 1000</span><br></pre></td></tr></table></figure>
+
+<p>在容器运行过程中我们可以使用<code>docker exec -it &lt;docker id&gt; ping db</code>命令，看看能否正常与db容器通信，然后再使用<code>docker exec -it &lt;docker id&gt; ping db:27017</code>看看端口是否开启。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">λ docker exec -it a0efed4a8d9b ping -c 2 db</span><br><span class="line">PING db (172.19.0.2): 56 data bytes</span><br><span class="line">64 bytes from 172.19.0.2: seq&#x3D;0 ttl&#x3D;64 time&#x3D;0.169 ms</span><br><span class="line">64 bytes from 172.19.0.2: seq&#x3D;1 ttl&#x3D;64 time&#x3D;0.096 ms</span><br><span class="line"></span><br><span class="line">--- db ping statistics ---</span><br><span class="line">2 packets transmitted, 2 packets received, 0% packet loss</span><br><span class="line">round-trip min&#x2F;avg&#x2F;max &#x3D; 0.096&#x2F;0.132&#x2F;0.169 ms</span><br></pre></td></tr></table></figure>
+<p>这个时候我们运行一下<code>docker network ls</code>，看看运行的<code>network</code>的ID，然后再输入<code>docker network inspect &lt;network id&gt;</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">λ docker network inspect &lt;network id&gt;</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        &quot;Name&quot;: &quot;mongo&quot;,</span><br><span class="line">        &quot;Id&quot;: &quot;92d630eadafa764dd40e3145b76f99d700f1d4a198d9ef2a8d73db440c020efd&quot;,</span><br><span class="line">        &quot;Created&quot;: &quot;2020-08-10T09:06:59.2047684Z&quot;,</span><br><span class="line">        &quot;Scope&quot;: &quot;local&quot;,</span><br><span class="line">        &quot;Driver&quot;: &quot;bridge&quot;,</span><br><span class="line">        &quot;EnableIPv6&quot;: false,</span><br><span class="line">        &quot;IPAM&quot;: &#123;</span><br><span class="line">            &quot;Driver&quot;: &quot;default&quot;,</span><br><span class="line">            &quot;Options&quot;: null,</span><br><span class="line">            &quot;Config&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;Subnet&quot;: &quot;172.19.0.0&#x2F;16&quot;,</span><br><span class="line">                    &quot;Gateway&quot;: &quot;172.19.0.1&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;Internal&quot;: false,</span><br><span class="line">        &quot;Attachable&quot;: true,</span><br><span class="line">        &quot;Ingress&quot;: false,</span><br><span class="line">        &quot;ConfigFrom&quot;: &#123;</span><br><span class="line">            &quot;Network&quot;: &quot;&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ConfigOnly&quot;: false,</span><br><span class="line">        &quot;Containers&quot;: &#123;</span><br><span class="line">            &quot;82025ba1fe6836858287fe4841b377744ab78a0adf83400b21736a4deb353edf&quot;: &#123;</span><br><span class="line">                &quot;Name&quot;: &quot;network_db_1&quot;,</span><br><span class="line">                &quot;EndpointID&quot;: &quot;cb4701b86ad30d3731fb92c58279bc6fd42cef5725254ecfab218d2ee8f45523&quot;,</span><br><span class="line">                &quot;MacAddress&quot;: &quot;02:42:ac:13:00:02&quot;,</span><br><span class="line">                &quot;IPv4Address&quot;: &quot;172.19.0.2&#x2F;16&quot;,</span><br><span class="line">                &quot;IPv6Address&quot;: &quot;&quot;</span><br><span class="line">            &#125;,</span><br><span class="line">            &quot;a0efed4a8d9b2df37d55e17eb77f9955481c7ff397bd7a3521a738c64edb3383&quot;: &#123;</span><br><span class="line">                &quot;Name&quot;: &quot;network_wait_1&quot;,</span><br><span class="line">                &quot;EndpointID&quot;: &quot;1f20117a0cbda05b26b6479a1681050a5560147875cc467daa18bf420c8074fe&quot;,</span><br><span class="line">                &quot;MacAddress&quot;: &quot;02:42:ac:13:00:03&quot;,</span><br><span class="line">                &quot;IPv4Address&quot;: &quot;172.19.0.3&#x2F;16&quot;,</span><br><span class="line">                &quot;IPv6Address&quot;: &quot;&quot;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;Options&quot;: &#123;&#125;,</span><br><span class="line">        &quot;Labels&quot;: &#123;</span><br><span class="line">            &quot;com.docker.compose.network&quot;: &quot;mongo&quot;,</span><br><span class="line">            &quot;com.docker.compose.project&quot;: &quot;house&quot;,</span><br><span class="line">            &quot;com.docker.compose.version&quot;: &quot;1.26.2&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>上面我们可以看到有两个容器在这个网络环境中，<code>Containers</code>对象中包含了这两个容器的网络状态。</p>
+<ul>
+<li>Name：容器名称</li>
+<li>MacAddress：容器的MAC地址</li>
+<li>IPv4Address：容器的IPV4地址</li>
+<li>IPv6Address：容器的IPV6地址</li>
+</ul>
+<p>上述就是使用<code>docker-compose.yml</code>进行<code>network</code>通信。非<code>docker-compose</code>的形式请参考<a href="https://docs.docker.com/network/bridge/" target="_blank" rel="noopener">https://docs.docker.com/network/bridge/</a></p>
+<h2 id="docker建立用户网络"><a href="#docker建立用户网络" class="headerlink" title="docker建立用户网络"></a>docker建立用户网络</h2><p><code>docker network create my-net</code>，创建一个名为<code>my-net</code>的网络，然后再使用<code>docker network connect my-net my-nginx</code>将已经运行的<code>my-nginx</code>容器加入到<code>my-net</code>网络。<br>也可以使用下面命令，在容器启动的时候添加<code>--network</code>参数，将容器运行在特定的网络环境下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker create --name my-nginx \</span></span><br><span class="line">  --network my-net \</span><br><span class="line">  --publish 8080:80 \</span><br><span class="line">  nginx:latest</span><br></pre></td></tr></table></figure>
+<p>如果想断开网络，可以使用<code>docker network disconnect my-net my-nginx</code></p>
+<h2 id="nginx代理到其它容器中的端口上"><a href="#nginx代理到其它容器中的端口上" class="headerlink" title="nginx代理到其它容器中的端口上"></a>nginx代理到其它容器中的端口上</h2><p>在前后端分离的背景下，我们使用<code>nginx</code>提供web服务。使用docker部署nginx时，会遇到代理到不同容器中端口的问题，下面就讲讲如何去解决这一个问题。</p>
+<p>第一种，我们使用<code>host</code>网络模式，这会让nginx容器置身于主机环境下，共用相同的网络。<br>第二种，我们使用容器名进行桥接。<br>先看看<code>docker-compose.yml</code>配置。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3.8'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">dashboard:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">mongo</span></span><br><span class="line">  <span class="attr">nginx:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure>
+<p>这里是<code>nginx.conf</code>配置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name _;</span><br><span class="line"></span><br><span class="line">    location &#x2F;api &#123;</span><br><span class="line">        proxy_set_header        X-Real_IP       $remote_addr;</span><br><span class="line">        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">        proxy_set_header        X-NginX-Proxy   true;</span><br><span class="line">        proxy_set_header        Host            $http_host;</span><br><span class="line">        proxy_set_header        Upgrade         $http_upgrade;</span><br><span class="line">        proxy_pass              http:&#x2F;&#x2F;dashboard:9090&#x2F;; # &lt;容器名&gt;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/08/08/%E4%BD%BF%E7%94%A8docker%E6%89%93%E5%8C%85%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8-webpack/">
+                使用docker打包前端应用(webpack)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-08-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="使用docker打包前端应用-webpack"><a href="#使用docker打包前端应用-webpack" class="headerlink" title="使用docker打包前端应用(webpack)"></a>使用docker打包前端应用(webpack)</h1><p>使用docker部署前端应用时，我们要清楚用docker能给我带来什么，以及使用docker带来的成本。</p>
+<p>用docker打包前端应用时，需要消耗的资源：</p>
+<ul>
+<li>学习docker，搭建docker基本运行环境（windows、linux）</li>
+<li>了解docker基本原理，以及dockerfile的语法</li>
+<li>打包之后的体积优化（非必须）</li>
+</ul>
+<p>用docker打包前端应用时，带来的好处：</p>
+<ul>
+<li>可以实现应用的网络隔离</li>
+<li>方便集成到CI工具中</li>
+<li>形成封闭的运行环境，不会因为nginx等web服务器漏洞导致被攻击</li>
+<li>layer缓存，如果没有发生依赖修改的情况下，可以直接使用缓存，提高打包iamge效率</li>
+<li>可移植，方便部署到windows、linux或者mac系统上</li>
+<li>部署层面的版本控制</li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/08/07/%E5%9C%A8Vue%E4%B8%AD%E4%BD%BF%E7%94%A8sentry/">
+                在Vue中使用sentry
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-08-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="在Vue中如何使用sentry？"><a href="#在Vue中如何使用sentry？" class="headerlink" title="在Vue中如何使用sentry？"></a>在Vue中如何使用sentry？</h1><p>sentry支持多个平台，在新建项目的时候可以发现支持数十种平台。以vue-next项目为例</p>
+<p>在入口引入<code>@sentry/browser</code>和<code>@sentry/integrations</code>这两个库，<code>raven-js</code>主要是做自定义上传</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Sentry <span class="keyword">from</span> <span class="string">'@sentry/browser'</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> Integrations <span class="keyword">from</span> <span class="string">'@sentry/integrations'</span></span><br><span class="line"><span class="keyword">import</span> Raven <span class="keyword">from</span> <span class="string">'raven-js'</span></span><br><span class="line"><span class="keyword">import</span> &#123;createApp, h&#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> APP <span class="keyword">from</span> <span class="string">'./APP.vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = createApp(&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> h(APP)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.mount(<span class="string">'#app'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> configSentry = &#123;</span><br><span class="line">  dsn: <span class="string">'&lt;dsn&gt;'</span>,</span><br><span class="line">  integrations: [<span class="keyword">new</span> Integrations.Vue(&#123; <span class="attr">Vue</span>: app, <span class="attr">attachProps</span>: <span class="literal">true</span> &#125;)],</span><br><span class="line">  debug: <span class="literal">true</span>,</span><br><span class="line">  beforeSend(event, hint) &#123;</span><br><span class="line">    <span class="keyword">if</span> (event.exception) &#123;</span><br><span class="line">      Sentry.showReportDialog(&#123; <span class="attr">eventId</span>: event.event_id &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> event;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">  <span class="keyword">delete</span> configSentry.debug</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Sentry.init(configSentry)</span><br><span class="line"></span><br><span class="line">Raven.config(<span class="string">'&lt;dsn&gt;'</span>)</span><br></pre></td></tr></table></figure>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/08/07/%E7%94%A8Docker%E9%83%A8%E7%BD%B2sentry%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">
                 用Docker部署sentry的几种方式
             </a>
@@ -169,6 +307,7 @@
 </ul>
 <p>至此，请使用<code>IP:9000</code>连接进行访问，我们可以正常访问sentry的后台。</p>
 <p>但是你会发现，<strong>用户名和密码</strong>在哪里？接下来，我们需要创建，我们键入<code>docker-compose run --rm web upgrade</code>，按照提示输入用户名和密码。</p>
+<p><code>--rm</code> 代表运行完成后删除容器，仅此运行一次。<br>参数<code>web</code>指<code>yml</code>里容器的名字，相对应命令是<code>docker run -it --rm -e SENTRY_SECRET_KEY=&#39;&lt;secret-key&gt;&#39; --link sentry-postgres:postgres --link sentry-redis:redis sentry upgrade</code></p>
 <h2 id="第二种，使用命令行的形式部署"><a href="#第二种，使用命令行的形式部署" class="headerlink" title="第二种，使用命令行的形式部署"></a>第二种，使用命令行的形式部署</h2><p>我们找到Docker的HUB，<a href="https://hub.docker.com/_/sentry/" target="_blank" rel="noopener">sentry hub</a>，然后我们按照上面的操作步骤下来，不过注意的是，执行第5步的时候没有将9000端口映射出来，我们需要稍微变更一下。</p>
 <ul>
 <li><code>docker run -d --name sentry-redis redis</code></li>
@@ -528,231 +667,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/07/02/shell%E4%B8%ADif%E7%9A%84%E7%94%A8%E6%B3%95/">
-                shell中if的用法
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-07-02</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h1><p>在部署项目时，会遇到一些环境问题，或者在一些重复性的劳动时，可以使用<code>shell</code>帮我们完成这些事情。</p>
-<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>create.sh</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">page=<span class="variable">$1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"<span class="variable">$page</span>"</span> != <span class="string">""</span> ]; <span class="keyword">then</span></span><br><span class="line">    npx hexo new <span class="string">"<span class="variable">$page</span>"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"please file name"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<p>输入<code>sh create.sh page</code>后会使用npx临时安装一个hexo.cmd，创建一个<code>page.md</code>在<code>hexo</code>项目中。<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo</a><br>如果是输入的<code>sh create.sh</code>，没有在后面跟上参数，那么将会输入一个<code>please file name</code>。</p>
-<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line"></span><br><span class="line">a=10</span><br><span class="line">b=20</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$a</span> == <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"a is equal to b"</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$a</span> -gt <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"a is greater than b"</span></span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$a</span> -lt <span class="variable">$b</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"a is less than b"</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="built_in">echo</span> <span class="string">"None of the condition met"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/06/29/pillow/">
-                pillow
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-06-29</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="Pillow"><a href="#Pillow" class="headerlink" title="Pillow"></a>Pillow</h1><p>在<code>python2</code>中使用<code>pillow</code>时注意<code>pillow</code>的版本，具体版本支持列表如下：<a href="https://pillow.readthedocs.io/en/stable/installation.html#notes" target="_blank" rel="noopener">官网</a></p>
-<table>
-<thead>
-<tr>
-<th>Python</th>
-<th>3.8</th>
-<th>3.7</th>
-<th>3.6</th>
-<th>3.5</th>
-<th>3.4</th>
-<th>3.3</th>
-<th>3.2</th>
-<th>2.7</th>
-<th>2.6</th>
-<th>2.5</th>
-<th>2.4</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Pillow &gt;= 7</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 6.2.1 - 6.2.2</td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 6.0 - 6.2.0</td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 5.2 - 5.4</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 5.0 - 5.1</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 4</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow 2 - 3</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Pillow &lt; 2</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-</tbody></table>
-<p>如果发生如下错误<br><code>ImportError: No module named Image</code><br>请参考解决方案 <a href="https://stackoverflow.com/questions/31016085/importerror-no-module-named-image-importerror-no-module-named-pil-python/31035763" target="_blank" rel="noopener">stackoverflow</a></p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/06/11/promise-allsettled/">
-                promise-allsettled
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-06-11</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="Promise-allSettled-的应用场景与原理"><a href="#Promise-allSettled-的应用场景与原理" class="headerlink" title="Promise.allSettled 的应用场景与原理"></a>Promise.allSettled 的应用场景与原理</h3><p>MDN: 该<code>Promise.allSettled()</code>方法返回一个在所有给定的promise已被决议或被拒绝后决议的promise，并带有一个对象数组，每个对象表示对应的promise结果。</p>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p><code>allSettled</code>只有一个状态，他会等待所有promise完成或拒绝后<code>有序</code>的调用then方法，参数为一个任务的结果和状态。</p>
-<p>返回结果示例：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"status"</span>: <span class="string">"fulfilled"</span>,</span><br><span class="line">    <span class="attr">"value"</span>: <span class="string">"success"</span></span><br><span class="line">&#125;,</span><br><span class="line">&#123;</span><br><span class="line">    <span class="attr">"status"</span>: <span class="string">"rejected"</span>,</span><br><span class="line">    <span class="attr">"reason"</span>: <span class="string">"failed"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>它和<code>all</code>最大的不同在于，<code>all</code>只要其中一个任务发生错误会立即返回，<code>all</code>没办法捕获到执行成功的结果。</p>
-<p>在一些非关联性的任务下，可以并发去执行并取得结果进行后续处理。比如，爬取一些页面数据的时候，每个页面都是独立的个体，互不关联，我们可以先抓取需要爬取的页面集合，进行处理后并发去执行请求或者其它异步任务。</p>
-<p><code>allSettled</code>目前处于TC39第四阶段草案，具体的实现进度可以参考<a href="https://test262.report/features/Promise.allSettled" target="_blank" rel="noopener">这里</a></p>
-<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>和<code>all</code>相同，都返回一个Promise，只是发生错误的时候并不会抛出异常，而会依次收集这个错误，在等待所有任务执行完成后返回。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -795,19 +709,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2020/08/10/docker%E4%B8%8D%E5%90%8C%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C%E9%80%9A%E4%BF%A1/">docker不同容器中的网络通信</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/08/08/%E4%BD%BF%E7%94%A8docker%E6%89%93%E5%8C%85%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8-webpack/">使用docker打包前端应用(webpack)</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/08/07/%E5%9C%A8Vue%E4%B8%AD%E4%BD%BF%E7%94%A8sentry/">在Vue中使用sentry</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2020/08/07/%E7%94%A8Docker%E9%83%A8%E7%BD%B2sentry%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F/">用Docker部署sentry的几种方式</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/07/30/%E4%BD%BF%E7%94%A8webpack%E8%BF%90%E8%A1%8Cvue3%E9%9C%80%E8%A6%81%E5%87%86%E5%A4%87%E7%9A%84%E5%B7%A5%E4%BD%9C/">使用webpack运行vue3需要准备的工作</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">vue2.x与vue-next速度对比（浏览器侧）</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">一步一步实现vue2.x版本的IP输入框</a>
             </li>
             
         </ul>

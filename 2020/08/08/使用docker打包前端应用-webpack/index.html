@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Link 记录过去，展望未来"/>
+        <meta property="og:title" content="使用docker打包前端应用(webpack)"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -47,7 +47,7 @@
 
     <!-- Title -->
     
-    <title>n2n nat linux - Link 记录过去，展望未来</title>
+    <title>使用docker打包前端应用(webpack) - Link 记录过去，展望未来</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -112,9 +112,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -122,25 +120,71 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">#n2n nat linux</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">
-        <span class="archive-date">
-            Jul 2020
-        </span>
-        n2n搭建一个局域网
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/08/08/%E4%BD%BF%E7%94%A8docker%E6%89%93%E5%8C%85%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8-webpack/">
+                使用docker打包前端应用(webpack)
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-08-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="使用docker打包前端应用-webpack"><a href="#使用docker打包前端应用-webpack" class="headerlink" title="使用docker打包前端应用(webpack)"></a>使用docker打包前端应用(webpack)</h1><p>使用docker部署前端应用时，我们要清楚用docker能给我带来什么，以及使用docker带来的成本。</p>
+<p>用docker打包前端应用时，需要消耗的资源：</p>
+<ul>
+<li>学习docker，搭建docker基本运行环境（windows、linux）</li>
+<li>了解docker基本原理，以及dockerfile的语法</li>
+<li>打包之后的体积优化（非必须）</li>
+</ul>
+<p>用docker打包前端应用时，带来的好处：</p>
+<ul>
+<li>可以实现应用的网络隔离</li>
+<li>方便集成到CI工具中</li>
+<li>形成封闭的运行环境，不会因为nginx等web服务器漏洞导致被攻击</li>
+<li>layer缓存，如果没有发生依赖修改的情况下，可以直接使用缓存，提高打包iamge效率</li>
+<li>可移植，方便部署到windows、linux或者mac系统上</li>
+<li>部署层面的版本控制</li>
+</ul>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/docker-image/">#docker image</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
         </section>
+
     </div>
 </div>
+
 
 </div>
 
