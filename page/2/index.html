@@ -132,6 +132,82 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">
+                n2n搭建一个局域网
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-07-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="n2n-搭建局域网（最主要还是可以打游戏）"><a href="#n2n-搭建局域网（最主要还是可以打游戏）" class="headerlink" title="n2n 搭建局域网（最主要还是可以打游戏）"></a>n2n 搭建局域网（最主要还是可以打游戏）</h1><p>我们可以利用固定的公网IP，在内部搭建一个虚拟的网络服务，用我们的电脑连上去即可组成局域网。</p>
+<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><ul>
+<li>可访问的公网IP以及<code>linux</code>服务器</li>
+<li>一台或多台客户端，能正常上网即可（游戏好友）</li>
+</ul>
+<h3 id="大致步骤如下"><a href="#大致步骤如下" class="headerlink" title="大致步骤如下"></a>大致步骤如下</h3><ul>
+<li>docker容器安装<code>supernode</code><ul>
+<li>具体命令 <code>docker run --rm -d -p 5645:5645/udp supermock/supernode</code></li>
+</ul>
+</li>
+<li>非docker容器安装<code>supernode</code><ul>
+<li><code>git clone https://github.com/ntop/n2n.git</code></li>
+<li><code>./autogen.sh</code></li>
+<li><code>./configure</code></li>
+<li><code>sudo make install</code></li>
+</ul>
+</li>
+<li>更多系统安装<code>n2n</code>请移步<a href="https://www.sayers.top/delete/n2nvpn.html" target="_blank" rel="noopener">https://www.sayers.top/delete/n2nvpn.html</a></li>
+<li>在客户端上安装<code>n2n client</code><ul>
+<li><strong>windows</strong><ul>
+<li>下载<a href="http://www.vpnhosting.cz/n2nguien.exe" target="_blank" rel="noopener">http://www.vpnhosting.cz/n2nguien.exe</a></li>
+<li>配置服务器IP地址以及端口</li>
+<li>配置局域网IP，用户名和密码。用户名和密码用于组，也就是说其他人使用相同的用户名和密码就可以组建局域网。<code>advanced</code>中有对应的版本设置，v1版本是明文传输数据，所以你们在安装服务器<code>supernode</code>时自己区分用哪一个版本。</li>
+<li>确定后会弹出窗口让你重启程序，需要在右下角右键n2n，选择quit。</li>
+<li>再次打开<code>n2ngui.exe</code>时会让你同意是否用于公用网络代表服务已经成功启动。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>具体配置如图<br><img src="https://i.loli.net/2020/07/07/OLBK3q4zyaXDGf9.png" alt="1594114053_1_.jpg"></p>
+<p>成功后会启动一个虚拟适配器，IP为<code>n2ngui.exe</code>设置的IP<br><img src="https://i.loli.net/2020/07/07/oyKE3dlXf42s8IC.png" alt="1594114161_1_.jpg"></p>
+<h3 id="部分问题"><a href="#部分问题" class="headerlink" title="部分问题"></a>部分问题</h3><ul>
+<li>ping不通局域网其它机器<ul>
+<li>请检查目标机器的防火墙设置。</li>
+</ul>
+</li>
+<li>连接不上服务器<ul>
+<li>请用管理员权限，进入到n2n安装目录，运行<code>edge -a 192.168.5.2 -c link -k link -l xxx.xxx.xxx.xxx:xxxx</code>，如果发生错误会发生<code>Registering with supernode</code>错误，如果是v2版本则会提示<code>WARNING:Supernode not responding - moving to 0 of 1</code></li>
+<li>请检查服务器端的防火墙端口是否打开，<code>UDP</code>哦！</li>
+</ul>
+</li>
+</ul>
+<p>部分参考连接：  </p>
+<ul>
+<li><a href="https://github.com/ntop/n2n" target="_blank" rel="noopener">https://github.com/ntop/n2n</a></li>
+<li><a href="https://hub.docker.com/r/supermock/supernode" target="_blank" rel="noopener">https://hub.docker.com/r/supermock/supernode</a></li>
+<li><a href="http://www.lucktu.com/archives/751.html" target="_blank" rel="noopener">http://www.lucktu.com/archives/751.html</a></li>
+<li><a href="https://www.sayers.top/delete/n2nvpn.html" target="_blank" rel="noopener">https://www.sayers.top/delete/n2nvpn.html</a></li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/07/02/shell%E4%B8%ADexpr%E6%9B%BF%E6%8D%A2%E8%AF%AD%E6%B3%95/">
                 shell中expr替换语法
             </a>
@@ -550,6 +626,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2020/09/04/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1vue2%E5%8D%87%E7%BA%A7%E5%88%B0vue3%E7%9A%84%E8%BF%87%E7%A8%8B/">记录一次vue2升级到vue3的过程</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2020/08/24/%E4%BB%80%E4%B9%88%E6%98%AFPromise-A-%EF%BC%9F%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAthen%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%EF%BC%9F/">什么是Promises/A+？如何实现一个then</a>
             </li>
             
@@ -559,10 +639,6 @@
             
             <li>
                 <a class="footer-post" href="/2020/08/08/%E4%BD%BF%E7%94%A8docker%E6%89%93%E5%8C%85%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8-webpack/">使用docker打包前端应用(webpack)</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/08/07/%E5%9C%A8Vue%E4%B8%AD%E4%BD%BF%E7%94%A8sentry/">在Vue中使用sentry</a>
             </li>
             
         </ul>

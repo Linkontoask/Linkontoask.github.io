@@ -132,6 +132,59 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2020/09/04/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1vue2%E5%8D%87%E7%BA%A7%E5%88%B0vue3%E7%9A%84%E8%BF%87%E7%A8%8B/">
+                记录一次vue2升级到vue3的过程
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-09-04</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="从vue2升级到vue3的应该做什么？"><a href="#从vue2升级到vue3的应该做什么？" class="headerlink" title="从vue2升级到vue3的应该做什么？"></a>从vue2升级到vue3的应该做什么？</h1><p>最近在升级<a href="https://linkorg.club/">v-easy-components</a>到<code>2.0.0</code>版本时候，发现了一些升级过程中的问题，总结一下，希望能帮到从vue2升级到vue3的项目。</p>
+<h2 id="emit-需要主动声明"><a href="#emit-需要主动声明" class="headerlink" title="emit 需要主动声明"></a>emit 需要主动声明</h2><p>在<code>.vue</code>组件中，使用<code>this.$emit(&#39;emitName&#39;)</code>时，不需要主动声明emit的第一个参数，在vue3中，必须主动声明<code>emits</code>，她接受数组，写法如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div @click="$emit('click')"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  emits: [<span class="string">'click'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果不主动声明，在使用组件时监听<code>click</code>事件，会触发两次。</p>
+<h2 id="v-model可以指定值，默认为modelValue"><a href="#v-model可以指定值，默认为modelValue" class="headerlink" title="v-model可以指定值，默认为modelValue"></a>v-model可以指定值，默认为modelValue</h2><p>在vue2中使用<code>v-model</code>默认为value（单选框、复选框等类型的输入控件不同），在vue3中支持自定义value，可以使用<code>v-model:value=&quot;value&quot;</code>支持vue2。也可以用<code>$emit(&#39;update:modelValue&#39;)</code>支持<code>v-model=&quot;value&quot;</code>，这取决于你可以（愿意）修改哪部分代码。</p>
+<p>以下为修改子组件的形式。更多信息参考<a href="https://v3.vuejs.org/guide/migration/v-model.html#overview" target="_blank" rel="noopener">https://v3.vuejs.org/guide/migration/v-model.html#overview</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp, ref &#125; <span class="keyword">from</span> <span class="string">'https://unpkg.com/vue@3.0.0-rc.9/dist/vue.esm-browser.js'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> App = createApp(&#123;</span><br><span class="line">    template: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;message v-model="value" /&gt;</span></span><br><span class="line"><span class="string">      &lt;button @click="value += 1"&gt;change A value&lt;/button&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">    setup: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> value = ref(<span class="number">0</span>)</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        value</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Message = &#123;</span><br><span class="line">  name: <span class="string">'Message'</span>,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;span&gt;&#123;&#123; modelValue &#125;&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">      &lt;button @click="$emit('update:modelValue', (modelValue+1))"&gt;change B value&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    modelValue: <span class="built_in">Number</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">App.component(Message.name, Message)</span><br><span class="line"></span><br><span class="line">App.mount(<span class="string">'#root'</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="完全移除this-set"><a href="#完全移除this-set" class="headerlink" title="完全移除this.$set"></a>完全移除this.$set</h2><p>vue3最大的改变之一就是使用<code>Proxy</code>。【Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。】①</p>
+<p>在项目架构中，分离了响应式系统，vue3中的响应式API可以剥离出来单独使用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ref, computed &#125; <span class="keyword">from</span> <span class="string">'@vue/reactivity'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> count = ref(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">const</span> plusOne = computed(<span class="function"><span class="params">()</span> =&gt;</span> count.value + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(plusOne.value) <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line">plusOne.value++ <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用config-globalProperties代替Vue-prototype"><a href="#使用config-globalProperties代替Vue-prototype" class="headerlink" title="使用config.globalProperties代替Vue.prototype"></a>使用config.globalProperties代替Vue.prototype</h2><p>现在提倡函数式编程，Vue也抛弃了2的new形式实例化一个组件，改用<code>createApp</code>创建，所以我们不能再使用<code>Vue.prototype</code>创建组件通用方法，更改为<code>app.config.globalProperties.attr = () =&gt; {}</code>这种形式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Before</span></span><br><span class="line">Vue.prototype.$http = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// After</span></span><br><span class="line"><span class="keyword">const</span> app = Vue.createApp(&#123;&#125;)</span><br><span class="line">app.config.globalProperties.$http = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义命令的改变"><a href="#自定义命令的改变" class="headerlink" title="自定义命令的改变"></a>自定义命令的改变</h2><p>vue2自定义指令文档在这里<a href="https://vuejs.org/v2/guide/custom-directive.html#Hook-Functions" target="_blank" rel="noopener">https://vuejs.org/v2/guide/custom-directive.html#Hook-Functions</a>，vue3自定义指令文档在这里<a href="https://v3.vuejs.org/api/application-api.html#directive" target="_blank" rel="noopener">https://v3.vuejs.org/api/application-api.html#directive</a>。自定义指令在升级过程中暂未发现特别需要注意的地方，按照文档更新即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// vue2</span></span><br><span class="line">Vue.directive(<span class="string">'demo'</span>, &#123;</span><br><span class="line">  bind: <span class="function"><span class="keyword">function</span> (<span class="params">el, binding, vnode</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> s = <span class="built_in">JSON</span>.stringify</span><br><span class="line">    el.innerHTML =</span><br><span class="line">      <span class="string">'name: '</span>       + s(binding.name) + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'value: '</span>      + s(binding.value) + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'expression: '</span> + s(binding.expression) + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'argument: '</span>   + s(binding.arg) + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'modifiers: '</span>  + s(binding.modifiers) + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'vnode keys: '</span> + <span class="built_in">Object</span>.keys(vnode).join(<span class="string">', '</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// vue3</span></span><br><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">const</span> app = createApp(&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// register</span></span><br><span class="line">app.directive(<span class="string">'my-directive'</span>, &#123;</span><br><span class="line">  <span class="comment">// Directive has a set of lifecycle hooks:</span></span><br><span class="line">  <span class="comment">// called before bound element's parent component is mounted</span></span><br><span class="line">  beforeMount() &#123;&#125;,</span><br><span class="line">  <span class="comment">// called when bound element's parent component is mounted</span></span><br><span class="line">  mounted() &#123;&#125;,</span><br><span class="line">  <span class="comment">// called before the containing component's VNode is updated</span></span><br><span class="line">  beforeUpdate() &#123;&#125;,</span><br><span class="line">  <span class="comment">// called after the containing component's VNode and the VNodes of its children // have updated</span></span><br><span class="line">  updated() &#123;&#125;,</span><br><span class="line">  <span class="comment">// called before the bound element's parent component is unmounted</span></span><br><span class="line">  beforeUnmount() &#123;&#125;,</span><br><span class="line">  <span class="comment">// called when the bound element's parent component is unmounted</span></span><br><span class="line">  unmounted() &#123;&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="nextTick的改变"><a href="#nextTick的改变" class="headerlink" title="nextTick的改变"></a>nextTick的改变</h2><p>在vue2中，在组件实例上可以使用<code>this.$nextTick</code>，它会在渲染之后调用。在vue3中，它变成了一个全局API，需要<code>import { nextTick } from &#39;vue&#39;</code>这样引用。vue3节省了一个实例所占用js内存，以下附两张不同版本的实例截图。</p>
+<p>Vue2<br><img src="../image/vue2.png" alt="Vue2"></p>
+<p>Vue3<br><img src="../image/vue3.png" alt="Vue3"></p>
+<h2 id="使用definecomponent来进行类型推导"><a href="#使用definecomponent来进行类型推导" class="headerlink" title="使用definecomponent来进行类型推导"></a>使用definecomponent来进行类型推导</h2><p>当项目中使用typescript时，可以使用definecomponent，它什么也不做，只会进行类型推导，让我们在使用时可以知道参数的类型。<a href="https://v3.vuejs.org/api/global-api.html#definecomponent" target="_blank" rel="noopener">https://v3.vuejs.org/api/global-api.html#definecomponent</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; definecomponent &#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> definecomponent(&#123;</span><br><span class="line">  name: <span class="string">''</span>,</span><br><span class="line">  setup() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>① <a href="https://es6.ruanyifeng.com/#docs/proxy#%E6%A6%82%E8%BF%B0" target="_blank" rel="noopener">https://es6.ruanyifeng.com/#docs/proxy#%E6%A6%82%E8%BF%B0</a></p>
+<p>更新时间：2020.09.04</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2020/08/24/%E4%BB%80%E4%B9%88%E6%98%AFPromise-A-%EF%BC%9F%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAthen%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%EF%BC%9F/">
                 什么是Promises/A+？如何实现一个then链式调用？
             </a>
@@ -636,82 +689,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">
-                n2n搭建一个局域网
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-07-07</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="n2n-搭建局域网（最主要还是可以打游戏）"><a href="#n2n-搭建局域网（最主要还是可以打游戏）" class="headerlink" title="n2n 搭建局域网（最主要还是可以打游戏）"></a>n2n 搭建局域网（最主要还是可以打游戏）</h1><p>我们可以利用固定的公网IP，在内部搭建一个虚拟的网络服务，用我们的电脑连上去即可组成局域网。</p>
-<h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><ul>
-<li>可访问的公网IP以及<code>linux</code>服务器</li>
-<li>一台或多台客户端，能正常上网即可（游戏好友）</li>
-</ul>
-<h3 id="大致步骤如下"><a href="#大致步骤如下" class="headerlink" title="大致步骤如下"></a>大致步骤如下</h3><ul>
-<li>docker容器安装<code>supernode</code><ul>
-<li>具体命令 <code>docker run --rm -d -p 5645:5645/udp supermock/supernode</code></li>
-</ul>
-</li>
-<li>非docker容器安装<code>supernode</code><ul>
-<li><code>git clone https://github.com/ntop/n2n.git</code></li>
-<li><code>./autogen.sh</code></li>
-<li><code>./configure</code></li>
-<li><code>sudo make install</code></li>
-</ul>
-</li>
-<li>更多系统安装<code>n2n</code>请移步<a href="https://www.sayers.top/delete/n2nvpn.html" target="_blank" rel="noopener">https://www.sayers.top/delete/n2nvpn.html</a></li>
-<li>在客户端上安装<code>n2n client</code><ul>
-<li><strong>windows</strong><ul>
-<li>下载<a href="http://www.vpnhosting.cz/n2nguien.exe" target="_blank" rel="noopener">http://www.vpnhosting.cz/n2nguien.exe</a></li>
-<li>配置服务器IP地址以及端口</li>
-<li>配置局域网IP，用户名和密码。用户名和密码用于组，也就是说其他人使用相同的用户名和密码就可以组建局域网。<code>advanced</code>中有对应的版本设置，v1版本是明文传输数据，所以你们在安装服务器<code>supernode</code>时自己区分用哪一个版本。</li>
-<li>确定后会弹出窗口让你重启程序，需要在右下角右键n2n，选择quit。</li>
-<li>再次打开<code>n2ngui.exe</code>时会让你同意是否用于公用网络代表服务已经成功启动。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>具体配置如图<br><img src="https://i.loli.net/2020/07/07/OLBK3q4zyaXDGf9.png" alt="1594114053_1_.jpg"></p>
-<p>成功后会启动一个虚拟适配器，IP为<code>n2ngui.exe</code>设置的IP<br><img src="https://i.loli.net/2020/07/07/oyKE3dlXf42s8IC.png" alt="1594114161_1_.jpg"></p>
-<h3 id="部分问题"><a href="#部分问题" class="headerlink" title="部分问题"></a>部分问题</h3><ul>
-<li>ping不通局域网其它机器<ul>
-<li>请检查目标机器的防火墙设置。</li>
-</ul>
-</li>
-<li>连接不上服务器<ul>
-<li>请用管理员权限，进入到n2n安装目录，运行<code>edge -a 192.168.5.2 -c link -k link -l xxx.xxx.xxx.xxx:xxxx</code>，如果发生错误会发生<code>Registering with supernode</code>错误，如果是v2版本则会提示<code>WARNING:Supernode not responding - moving to 0 of 1</code></li>
-<li>请检查服务器端的防火墙端口是否打开，<code>UDP</code>哦！</li>
-</ul>
-</li>
-</ul>
-<p>部分参考连接：  </p>
-<ul>
-<li><a href="https://github.com/ntop/n2n" target="_blank" rel="noopener">https://github.com/ntop/n2n</a></li>
-<li><a href="https://hub.docker.com/r/supermock/supernode" target="_blank" rel="noopener">https://hub.docker.com/r/supermock/supernode</a></li>
-<li><a href="http://www.lucktu.com/archives/751.html" target="_blank" rel="noopener">http://www.lucktu.com/archives/751.html</a></li>
-<li><a href="https://www.sayers.top/delete/n2nvpn.html" target="_blank" rel="noopener">https://www.sayers.top/delete/n2nvpn.html</a></li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -754,6 +731,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2020/09/04/%E8%AE%B0%E5%BD%95%E4%B8%80%E6%AC%A1vue2%E5%8D%87%E7%BA%A7%E5%88%B0vue3%E7%9A%84%E8%BF%87%E7%A8%8B/">记录一次vue2升级到vue3的过程</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2020/08/24/%E4%BB%80%E4%B9%88%E6%98%AFPromise-A-%EF%BC%9F%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAthen%E9%93%BE%E5%BC%8F%E8%B0%83%E7%94%A8%EF%BC%9F/">什么是Promises/A+？如何实现一个then</a>
             </li>
             
@@ -763,10 +744,6 @@
             
             <li>
                 <a class="footer-post" href="/2020/08/08/%E4%BD%BF%E7%94%A8docker%E6%89%93%E5%8C%85%E5%89%8D%E7%AB%AF%E5%BA%94%E7%94%A8-webpack/">使用docker打包前端应用(webpack)</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2020/08/07/%E5%9C%A8Vue%E4%B8%AD%E4%BD%BF%E7%94%A8sentry/">在Vue中使用sentry</a>
             </li>
             
         </ul>
