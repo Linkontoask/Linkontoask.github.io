@@ -1494,6 +1494,8 @@
           
             <h1 id="git-将-lf-转换-crlf"><a href="#git-将-lf-转换-crlf" class="headerlink" title="git 将 lf 转换 crlf"></a>git 将 lf 转换 crlf</h1><p><code>find . -type f | xargs dos2unix</code></p>
 <p><a href="https://blog.konghy.cn/2017/03/19/git-lf-or-crlf/" target="_blank" rel="noopener">https://blog.konghy.cn/2017/03/19/git-lf-or-crlf/</a></p>
+<p>排除一些文件夹进行转换</p>
+<p><code>find . -path &quot;./node_modules&quot; -prune -o -type f -print | xargs dos2unix</code></p>
 
           
         

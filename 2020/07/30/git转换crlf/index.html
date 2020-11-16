@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="git 将 lf 转换 crlffind . -type f | xargs dos2unix https:&#x2F;&#x2F;blog.konghy.cn&#x2F;2017&#x2F;03&#x2F;19&#x2F;git-lf-or-crlf&#x2F;">
+<meta name="description" content="git 将 lf 转换 crlffind . -type f | xargs dos2unix https:&#x2F;&#x2F;blog.konghy.cn&#x2F;2017&#x2F;03&#x2F;19&#x2F;git-lf-or-crlf&#x2F; 排除一些文件夹进行转换 find . -path &quot;.&#x2F;node_modules&quot; -prune -o -type f -print | xargs dos2unix">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git将lf转换crlf">
 <meta property="og:url" content="https://linkorg.club/2020/07/30/git%E8%BD%AC%E6%8D%A2crlf/index.html">
 <meta property="og:site_name" content="我的博客">
-<meta property="og:description" content="git 将 lf 转换 crlffind . -type f | xargs dos2unix https:&#x2F;&#x2F;blog.konghy.cn&#x2F;2017&#x2F;03&#x2F;19&#x2F;git-lf-or-crlf&#x2F;">
+<meta property="og:description" content="git 将 lf 转换 crlffind . -type f | xargs dos2unix https:&#x2F;&#x2F;blog.konghy.cn&#x2F;2017&#x2F;03&#x2F;19&#x2F;git-lf-or-crlf&#x2F; 排除一些文件夹进行转换 find . -path &quot;.&#x2F;node_modules&quot; -prune -o -type f -print | xargs dos2unix">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-30T15:08:53.000Z">
-<meta property="article:modified_time" content="2020-11-04T09:03:41.949Z">
+<meta property="article:modified_time" content="2020-11-16T03:13:23.036Z">
 <meta property="article:author" content="Link">
 <meta property="article:tag" content="vue webpack">
 <meta name="twitter:card" content="summary">
@@ -302,6 +302,8 @@
       
         <h1 id="git-将-lf-转换-crlf"><a href="#git-将-lf-转换-crlf" class="headerlink" title="git 将 lf 转换 crlf"></a>git 将 lf 转换 crlf</h1><p><code>find . -type f | xargs dos2unix</code></p>
 <p><a href="https://blog.konghy.cn/2017/03/19/git-lf-or-crlf/" target="_blank" rel="noopener">https://blog.konghy.cn/2017/03/19/git-lf-or-crlf/</a></p>
+<p>排除一些文件夹进行转换</p>
+<p><code>find . -path &quot;./node_modules&quot; -prune -o -type f -print | xargs dos2unix</code></p>
 
       
     </div>
