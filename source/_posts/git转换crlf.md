@@ -9,3 +9,7 @@ tags: vue webpack
 `find . -type f | xargs dos2unix`
 
 [https://blog.konghy.cn/2017/03/19/git-lf-or-crlf/](https://blog.konghy.cn/2017/03/19/git-lf-or-crlf/)
+
+排除一些文件夹进行转换
+
+`find . -path "./node_modules" -prune -o -type f -print | xargs dos2unix`
