@@ -1,132 +1,52 @@
 <!DOCTYPE html>
-
-
-
-  
-
-
-<html class="theme-next muse use-motion" lang="zh-cn">
+<html lang="zh-cn">
 <head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"github.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
 
-
-
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
-
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
-
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
-
-
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
-
-
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
-
-
-
-
-
-  <meta name="keywords" content="vue component," />
-
-
-
-
-
-
-
-
-
-
-<meta name="description" content="一步一步实现vue2-x版本的IP输入框此篇文章是在vue2.x版本的前提下写下来的，只要你会一点点vue语法就可以实现一个简单的IP输入框。 思路既然是IP输入框，那么就是四个input组成，当然这里可以使用contenteditable属性，为了可读性以及方便捕获对应的事件，这里就使用input。  准备四个input输入框 组织好元素的DOM结构，思考会用到的事件  一个IP输入框，无非就是">
+  <meta name="description" content="一步一步实现vue2-x版本的IP输入框此篇文章是在vue2.x版本的前提下写下来的，只要你会一点点vue语法就可以实现一个简单的IP输入框。 思路既然是IP输入框，那么就是四个input组成，当然这里可以使用contenteditable属性，为了可读性以及方便捕获对应的事件，这里就使用input。  准备四个input输入框 组织好元素的DOM结构，思考会用到的事件  一个IP输入框，无非就是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="一步一步实现vue2.x版本的IP输入框">
-<meta property="og:url" content="https://linkorg.club/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/index.html">
-<meta property="og:site_name" content="我的博客">
+<meta property="og:url" content="https://github.com/Linkontoask/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/index.html">
+<meta property="og:site_name" content="记录与分享">
 <meta property="og:description" content="一步一步实现vue2-x版本的IP输入框此篇文章是在vue2.x版本的前提下写下来的，只要你会一点点vue语法就可以实现一个简单的IP输入框。 思路既然是IP输入框，那么就是四个input组成，当然这里可以使用contenteditable属性，为了可读性以及方便捕获对应的事件，这里就使用input。  准备四个input输入框 组织好元素的DOM结构，思考会用到的事件  一个IP输入框，无非就是">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-07-12T11:34:32.000Z">
-<meta property="article:modified_time" content="2020-11-16T03:13:23.036Z">
+<meta property="article:modified_time" content="2021-05-16T05:05:58.784Z">
 <meta property="article:author" content="Link">
 <meta property="article:tag" content="vue component">
 <meta name="twitter:card" content="summary">
 
+<link rel="canonical" href="https://github.com/Linkontoask/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">
 
 
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Muse',
-    version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
-    fancybox: true,
-    tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
-    duoshuo: {
-      userId: '0',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-cn'
   };
 </script>
 
-
-
-  <link rel="canonical" href="https://linkorg.club/2020/07/12/一步一步实现vue2-x版本的IP输入框/"/>
-
-
-
-
-
-  <title>一步一步实现vue2.x版本的IP输入框 | 我的博客</title>
+  <title>一步一步实现vue2.x版本的IP输入框 | 记录与分享</title>
   
 
 
@@ -134,170 +54,146 @@
 
 
 
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
 
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-cn">
+</head>
 
-  
-  
-    
-  
-
-  <div class="container sidebar-position-left page-post-detail">
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
     <div class="headband"></div>
 
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
-    
-
-    <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">我的博客</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="تشغيل شريط التصفح">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
-      
-        <p class="site-subtitle">Link</p>
-      
   </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">记录与分享</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Link</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
   </div>
 </div>
 
+
+
+
 <nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
-          <a href="/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
         <li class="menu-item menu-item-archives">
-          <a href="/archives/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            Archives
-          </a>
-        </li>
-      
 
-      
-    </ul>
-  
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
 
-  
+  </li>
+  </ul>
 </nav>
 
 
 
- </div>
+
+</div>
     </header>
 
-    <main id="main" class="main">
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
       <div class="main-inner">
         <div class="content-wrap">
-          <div id="content" class="content">
+          
+
+          <div class="content post posts-expand">
             
 
-  <div id="posts" class="posts-expand">
     
-
-  
-
   
   
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://linkorg.club/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Link">
-      <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Link">
+      <meta itemprop="description" content="坚持每天进步一点，多学一点“装”的技术，不止步与现状。">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="我的博客">
+      <meta itemprop="name" content="记录与分享">
     </span>
-
-    
       <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">一步一步实现vue2.x版本的IP输入框</h1>
-        
+        <h1 class="post-title" itemprop="name headline">
+          一步一步实现vue2.x版本的IP输入框
+        </h1>
 
         <div class="post-meta">
-          <span class="post-time">
-            
+            <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-12T11:34:32+00:00">
-                2020-07-12
-              </time>
-            
+              <span class="post-meta-item-text">نُشر في</span>
 
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
+              <time title="أُنشأ: 2020-07-12 11:34:32" itemprop="dateCreated datePublished" datetime="2020-07-12T11:34:32+00:00">2020-07-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">عُدل في</span>
+                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+              </span>
 
           
 
         </div>
       </header>
-    
 
     
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-      
 
       
         <h1 id="一步一步实现vue2-x版本的IP输入框"><a href="#一步一步实现vue2-x版本的IP输入框" class="headerlink" title="一步一步实现vue2-x版本的IP输入框"></a>一步一步实现vue2-x版本的IP输入框</h1><p>此篇文章是在vue2.x版本的前提下写下来的，只要你会一点点vue语法就可以实现一个简单的IP输入框。</p>
@@ -307,7 +203,7 @@
 <li>组织好元素的DOM结构，思考会用到的事件</li>
 </ul>
 <p>一个IP输入框，无非就是处理用户的输入，然后输出给用户看。其中我们为了优化用户体验，监听了粘贴、删除、左右键、点（小数点，这里参考了windows的IP输入框），让用户拥有原生体验。</p>
-<p>live：<a href="https://linkorg.club/guide/ip-subnet-input.html#usage-method">https://linkorg.club/guide/ip-subnet-input.html#usage-method</a></p>
+<p>live：<a href="https://linkorg.club/guide/ip-subnet-input.html#usage-method" target="_blank" rel="noopener">https://linkorg.club/guide/ip-subnet-input.html#usage-method</a></p>
 <p>上述链接中讲了组件的基本使用以及部分业务场景，里面也包括了很多其它组件，与其它UI组件不同的是，这里涵盖了一些不常用的组件以及指令，谁都可以把组件提取出来加以修改。</p>
 <h3 id="支持哪些功能呢？"><a href="#支持哪些功能呢？" class="headerlink" title="支持哪些功能呢？"></a>支持哪些功能呢？</h3><ul>
 <li>支持基本的IP输入</li>
@@ -319,316 +215,238 @@
 <h3 id="将来要支持的功能"><a href="#将来要支持的功能" class="headerlink" title="将来要支持的功能"></a>将来要支持的功能</h3><ul>
 <li>支持端口的输入</li>
 </ul>
-<h3 id="在哪里可以看到源码？"><a href="#在哪里可以看到源码？" class="headerlink" title="在哪里可以看到源码？"></a>在哪里可以看到源码？</h3><p>可以去<a href="https://github.com/Linkontoask/v-easy-components/tree/dev-2020/packages/input-ip" target="_blank" rel="noopener">https://github.com/Linkontoask/v-easy-components/tree/dev-2020/packages/input-ip</a>这里看到最新的源码，你可以自己fork自己修改。</p>
+<h3 id="在哪里可以看到源码？"><a href="#在哪里可以看到源码？" class="headerlink" title="在哪里可以看到源码？"></a>在哪里可以看到源码？</h3><p>可以去<a href="https://github.com/Linkontoask/v-easy-components/tree/dev-2020/packages/input-ip">https://github.com/Linkontoask/v-easy-components/tree/dev-2020/packages/input-ip</a>这里看到最新的源码，你可以自己fork自己修改。</p>
 <h3 id="修改日志"><a href="#修改日志" class="headerlink" title="修改日志"></a>修改日志</h3><p>这里的日志是指所有组件的修改日志，并非只有ip输入框的修改日志。</p>
-<h2 id="1-2-1-2020-07-12"><a href="#1-2-1-2020-07-12" class="headerlink" title="1.2.1 (2020-07-12)"></a><a href="https://github.com/Linkontoask/v-easy-components/compare/1.1.1...1.2.1" target="_blank" rel="noopener">1.2.1</a> (2020-07-12)</h2><h3 id="Bug-Fixes"><a href="#Bug-Fixes" class="headerlink" title="Bug Fixes"></a>Bug Fixes</h3><ul>
-<li>error-class remove ‘none’ class name (<a href="https://github.com/Linkontoask/v-easy-components/commit/810b60150d607946f9189fdc6b46db9ba8e708cd" target="_blank" rel="noopener">810b601</a>)</li>
-<li>scroll-bar auto warp size in the mounted (<a href="https://github.com/Linkontoask/v-easy-components/commit/a1b852adc4310ed422a80ccc8805115a947018a9" target="_blank" rel="noopener">a1b852a</a>)</li>
+<h2 id="1-2-1-2020-07-12"><a href="#1-2-1-2020-07-12" class="headerlink" title="1.2.1 (2020-07-12)"></a><a href="https://github.com/Linkontoask/v-easy-components/compare/1.1.1...1.2.1">1.2.1</a> (2020-07-12)</h2><h3 id="Bug-Fixes"><a href="#Bug-Fixes" class="headerlink" title="Bug Fixes"></a>Bug Fixes</h3><ul>
+<li>error-class remove ‘none’ class name (<a href="https://github.com/Linkontoask/v-easy-components/commit/810b60150d607946f9189fdc6b46db9ba8e708cd">810b601</a>)</li>
+<li>scroll-bar auto warp size in the mounted (<a href="https://github.com/Linkontoask/v-easy-components/commit/a1b852adc4310ed422a80ccc8805115a947018a9">a1b852a</a>)</li>
 </ul>
 <h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><ul>
-<li>The IP input box and subnet mask input box support paste, and fix the problem of cursor movement and flashing (<a href="https://github.com/Linkontoask/v-easy-components/commit/67a3040182a8aaa5c7b967fc699a0a387c3d183e" target="_blank" rel="noopener">67a3040</a>)</li>
+<li>The IP input box and subnet mask input box support paste, and fix the problem of cursor movement and flashing (<a href="https://github.com/Linkontoask/v-easy-components/commit/67a3040182a8aaa5c7b967fc699a0a387c3d183e">67a3040</a>)</li>
 </ul>
-<h2 id="1-1-1-2020-07-06"><a href="#1-1-1-2020-07-06" class="headerlink" title="1.1.1 (2020-07-06)"></a><a href="https://github.com/Linkontoask/v-easy-components/compare/0.5.10...1.1.1" target="_blank" rel="noopener">1.1.1</a> (2020-07-06)</h2><h3 id="Bug-Fixes-1"><a href="#Bug-Fixes-1" class="headerlink" title="Bug Fixes"></a>Bug Fixes</h3><ul>
-<li><a href="https://github.com/Linkontoask/v-easy-components/issues/27" target="_blank" rel="noopener">#27</a> (<a href="https://github.com/Linkontoask/v-easy-components/commit/1440dfcd3c41840cbdcfe00113106a38205c0b3f" target="_blank" rel="noopener">1440dfc</a>)</li>
-<li><a href="https://github.com/Linkontoask/v-easy-components/issues/33" target="_blank" rel="noopener">#33</a> (<a href="https://github.com/Linkontoask/v-easy-components/commit/f3f31517ba52e303f8bb2d3933d3216abcf9188f" target="_blank" rel="noopener">f3f3151</a>)</li>
-<li>Button circle styles (<a href="https://github.com/Linkontoask/v-easy-components/commit/07228c6b962c34a5d41469a0837e6c2e91607785" target="_blank" rel="noopener">07228c6</a>)</li>
-<li>color-picker not available (<a href="https://github.com/Linkontoask/v-easy-components/commit/26e6d14fdeef2fc3ce0aa626e51772563705f213" target="_blank" rel="noopener">26e6d14</a>)</li>
-<li>components.json directory change (<a href="https://github.com/Linkontoask/v-easy-components/commit/b741f146b85d02fb8998e2e80a70a16593076138" target="_blank" rel="noopener">b741f14</a>)</li>
-<li>core-js@3 to core-js@2 <a href="https://github.com/Linkontoask/v-easy-components/issues/8" target="_blank" rel="noopener">#8</a> (<a href="https://github.com/Linkontoask/v-easy-components/commit/d09dac763f7e13d166b9b5c5e3dec856c2dc678a" target="_blank" rel="noopener">d09dac7</a>)</li>
-<li>core-js@3 to core-js@2 and useBuiltIns: “entry” (<a href="https://github.com/Linkontoask/v-easy-components/commit/25cc28543972c5c1e3147ba286bdfd1fc51ddbd2" target="_blank" rel="noopener">25cc285</a>)</li>
-<li>directive loading-preload unbind hook: “NotFoundError: Failed to execute ‘removeChild’ on ‘Node’ (<a href="https://github.com/Linkontoask/v-easy-components/commit/f7b0ef2c5e1409f8418ddb80f78a4057b996c8fb" target="_blank" rel="noopener">f7b0ef2</a>)</li>
-<li>edit page repo linkorg.club -&gt; v-easy-components (<a href="https://github.com/Linkontoask/v-easy-components/commit/806456339f776ab50858f330a460862daed530bb" target="_blank" rel="noopener">8064563</a>)</li>
-<li>fix button plain white color (<a href="https://github.com/Linkontoask/v-easy-components/commit/b499d5b9e11f153cdaee75cb374334452022c52c" target="_blank" rel="noopener">b499d5b</a>)</li>
-<li>fix server document is not defined (<a href="https://github.com/Linkontoask/v-easy-components/commit/3cf93aba20d3e07aed8848e8f5a85ae14872eb4b" target="_blank" rel="noopener">3cf93ab</a>)</li>
-<li>Font icon is separated, fix the style after component is not found xxx.css (<a href="https://github.com/Linkontoask/v-easy-components/commit/b9816fd80273d072c0aeed09486e4f5b3ac2ace8" target="_blank" rel="noopener">b9816fd</a>)</li>
-<li>import add Message (<a href="https://github.com/Linkontoask/v-easy-components/commit/9e2bdabc57fcf1ebc1eb78b652560dac875d4388" target="_blank" rel="noopener">9e2bdab</a>)</li>
-<li>libraryExport: ‘default’ config (<a href="https://github.com/Linkontoask/v-easy-components/commit/ac5b3ab3f796914d460a312f9e55bd84606a22c5" target="_blank" rel="noopener">ac5b3ab</a>)</li>
-<li>Manual input pointer position is not updated and Rename file (<a href="https://github.com/Linkontoask/v-easy-components/commit/287cfd674dae6dcf45828880247a2fea282291fa" target="_blank" rel="noopener">287cfd6</a>)</li>
-<li>Optimize automatic deletion of tip instances and increase test code (<a href="https://github.com/Linkontoask/v-easy-components/commit/f22835437d52e7173f5469ae9848341bd812eec4" target="_blank" rel="noopener">f228354</a>)</li>
-<li>post-css warning start value has mixed support, consider using flex-start instead (<a href="https://github.com/Linkontoask/v-easy-components/commit/08127e8cb92e002ea4aae7ef474224c3b751b877" target="_blank" rel="noopener">08127e8</a>)</li>
-<li>push error (<a href="https://github.com/Linkontoask/v-easy-components/commit/43060db205733c4feb5afad3044f1ec11368f2b5" target="_blank" rel="noopener">43060db</a>)</li>
-<li>release 0.6.1 (<a href="https://github.com/Linkontoask/v-easy-components/commit/a5c1961acf425aa8bc6cb8a784c321a60f54818c" target="_blank" rel="noopener">a5c1961</a>)</li>
-<li>route-indicator name component (<a href="https://github.com/Linkontoask/v-easy-components/commit/a94412eb83900b354bd0fb8f9d9d6d84dc4f8924" target="_blank" rel="noopener">a94412e</a>)</li>
-<li>scroll-bar is-horizontal remove height css (<a href="https://github.com/Linkontoask/v-easy-components/commit/06c91227e380b43a606ffdd21e396f354244a25f" target="_blank" rel="noopener">06c9122</a>)</li>
-<li>steps placement border direction (<a href="https://github.com/Linkontoask/v-easy-components/commit/f6d86ebf8f3d98ab5f916714b334633ef0b4a1ed" target="_blank" rel="noopener">f6d86eb</a>)</li>
-<li>supports split icon component (<a href="https://github.com/Linkontoask/v-easy-components/commit/ea62b3aff381267f92426f140720b710a2f9b3f5" target="_blank" rel="noopener">ea62b3a</a>)</li>
-<li>target: click No content displayed when moving in again (<a href="https://github.com/Linkontoask/v-easy-components/commit/c0f50cbd38910d947a63ba76c20aa12279666d70" target="_blank" rel="noopener">c0f50cb</a>)</li>
-<li>upgrade to fontawesome 5.11.2 (<a href="https://github.com/Linkontoask/v-easy-components/commit/db37da21f2de0fe9b9eef88c7db4a0927bbb2995" target="_blank" rel="noopener">db37da2</a>)</li>
-<li>use npm install prompt core-js library is not installed (<a href="https://github.com/Linkontoask/v-easy-components/commit/4f9f90757d36ab63cb08f8424022f82009b59644" target="_blank" rel="noopener">4f9f907</a>)</li>
-<li>v-image v-show bug (<a href="https://github.com/Linkontoask/v-easy-components/commit/82d17094e11d0074608a62cebcf6568a9b3f87ba" target="_blank" rel="noopener">82d1709</a>)</li>
-<li>v-loading-preload init fix and add validate-commit-msg config (<a href="https://github.com/Linkontoask/v-easy-components/commit/916fdae84b1b8097b99356d0bb5025c3c1805390" target="_blank" rel="noopener">916fdae</a>)</li>
+<h2 id="1-1-1-2020-07-06"><a href="#1-1-1-2020-07-06" class="headerlink" title="1.1.1 (2020-07-06)"></a><a href="https://github.com/Linkontoask/v-easy-components/compare/0.5.10...1.1.1">1.1.1</a> (2020-07-06)</h2><h3 id="Bug-Fixes-1"><a href="#Bug-Fixes-1" class="headerlink" title="Bug Fixes"></a>Bug Fixes</h3><ul>
+<li><a href="https://github.com/Linkontoask/v-easy-components/issues/27">#27</a> (<a href="https://github.com/Linkontoask/v-easy-components/commit/1440dfcd3c41840cbdcfe00113106a38205c0b3f">1440dfc</a>)</li>
+<li><a href="https://github.com/Linkontoask/v-easy-components/issues/33">#33</a> (<a href="https://github.com/Linkontoask/v-easy-components/commit/f3f31517ba52e303f8bb2d3933d3216abcf9188f">f3f3151</a>)</li>
+<li>Button circle styles (<a href="https://github.com/Linkontoask/v-easy-components/commit/07228c6b962c34a5d41469a0837e6c2e91607785">07228c6</a>)</li>
+<li>color-picker not available (<a href="https://github.com/Linkontoask/v-easy-components/commit/26e6d14fdeef2fc3ce0aa626e51772563705f213">26e6d14</a>)</li>
+<li>components.json directory change (<a href="https://github.com/Linkontoask/v-easy-components/commit/b741f146b85d02fb8998e2e80a70a16593076138">b741f14</a>)</li>
+<li>core-js@3 to core-js@2 <a href="https://github.com/Linkontoask/v-easy-components/issues/8">#8</a> (<a href="https://github.com/Linkontoask/v-easy-components/commit/d09dac763f7e13d166b9b5c5e3dec856c2dc678a">d09dac7</a>)</li>
+<li>core-js@3 to core-js@2 and useBuiltIns: “entry” (<a href="https://github.com/Linkontoask/v-easy-components/commit/25cc28543972c5c1e3147ba286bdfd1fc51ddbd2">25cc285</a>)</li>
+<li>directive loading-preload unbind hook: “NotFoundError: Failed to execute ‘removeChild’ on ‘Node’ (<a href="https://github.com/Linkontoask/v-easy-components/commit/f7b0ef2c5e1409f8418ddb80f78a4057b996c8fb">f7b0ef2</a>)</li>
+<li>edit page repo linkorg.club -&gt; v-easy-components (<a href="https://github.com/Linkontoask/v-easy-components/commit/806456339f776ab50858f330a460862daed530bb">8064563</a>)</li>
+<li>fix button plain white color (<a href="https://github.com/Linkontoask/v-easy-components/commit/b499d5b9e11f153cdaee75cb374334452022c52c">b499d5b</a>)</li>
+<li>fix server document is not defined (<a href="https://github.com/Linkontoask/v-easy-components/commit/3cf93aba20d3e07aed8848e8f5a85ae14872eb4b">3cf93ab</a>)</li>
+<li>Font icon is separated, fix the style after component is not found xxx.css (<a href="https://github.com/Linkontoask/v-easy-components/commit/b9816fd80273d072c0aeed09486e4f5b3ac2ace8">b9816fd</a>)</li>
+<li>import add Message (<a href="https://github.com/Linkontoask/v-easy-components/commit/9e2bdabc57fcf1ebc1eb78b652560dac875d4388">9e2bdab</a>)</li>
+<li>libraryExport: ‘default’ config (<a href="https://github.com/Linkontoask/v-easy-components/commit/ac5b3ab3f796914d460a312f9e55bd84606a22c5">ac5b3ab</a>)</li>
+<li>Manual input pointer position is not updated and Rename file (<a href="https://github.com/Linkontoask/v-easy-components/commit/287cfd674dae6dcf45828880247a2fea282291fa">287cfd6</a>)</li>
+<li>Optimize automatic deletion of tip instances and increase test code (<a href="https://github.com/Linkontoask/v-easy-components/commit/f22835437d52e7173f5469ae9848341bd812eec4">f228354</a>)</li>
+<li>post-css warning start value has mixed support, consider using flex-start instead (<a href="https://github.com/Linkontoask/v-easy-components/commit/08127e8cb92e002ea4aae7ef474224c3b751b877">08127e8</a>)</li>
+<li>push error (<a href="https://github.com/Linkontoask/v-easy-components/commit/43060db205733c4feb5afad3044f1ec11368f2b5">43060db</a>)</li>
+<li>release 0.6.1 (<a href="https://github.com/Linkontoask/v-easy-components/commit/a5c1961acf425aa8bc6cb8a784c321a60f54818c">a5c1961</a>)</li>
+<li>route-indicator name component (<a href="https://github.com/Linkontoask/v-easy-components/commit/a94412eb83900b354bd0fb8f9d9d6d84dc4f8924">a94412e</a>)</li>
+<li>scroll-bar is-horizontal remove height css (<a href="https://github.com/Linkontoask/v-easy-components/commit/06c91227e380b43a606ffdd21e396f354244a25f">06c9122</a>)</li>
+<li>steps placement border direction (<a href="https://github.com/Linkontoask/v-easy-components/commit/f6d86ebf8f3d98ab5f916714b334633ef0b4a1ed">f6d86eb</a>)</li>
+<li>supports split icon component (<a href="https://github.com/Linkontoask/v-easy-components/commit/ea62b3aff381267f92426f140720b710a2f9b3f5">ea62b3a</a>)</li>
+<li>target: click No content displayed when moving in again (<a href="https://github.com/Linkontoask/v-easy-components/commit/c0f50cbd38910d947a63ba76c20aa12279666d70">c0f50cb</a>)</li>
+<li>upgrade to fontawesome 5.11.2 (<a href="https://github.com/Linkontoask/v-easy-components/commit/db37da21f2de0fe9b9eef88c7db4a0927bbb2995">db37da2</a>)</li>
+<li>use npm install prompt core-js library is not installed (<a href="https://github.com/Linkontoask/v-easy-components/commit/4f9f90757d36ab63cb08f8424022f82009b59644">4f9f907</a>)</li>
+<li>v-image v-show bug (<a href="https://github.com/Linkontoask/v-easy-components/commit/82d17094e11d0074608a62cebcf6568a9b3f87ba">82d1709</a>)</li>
+<li>v-loading-preload init fix and add validate-commit-msg config (<a href="https://github.com/Linkontoask/v-easy-components/commit/916fdae84b1b8097b99356d0bb5025c3c1805390">916fdae</a>)</li>
 </ul>
 <h3 id="Features-1"><a href="#Features-1" class="headerlink" title="Features"></a>Features</h3><ul>
-<li>add base color-picker component (<a href="https://github.com/Linkontoask/v-easy-components/commit/40be4a7a55652da2e36012e8b797751a88b694e6" target="_blank" rel="noopener">40be4a7</a>)</li>
-<li>Add ESLint function (<a href="https://github.com/Linkontoask/v-easy-components/commit/0e49e9cdfdb6724b7531386cbbdc06806240266e" target="_blank" rel="noopener">0e49e9c</a>)</li>
-<li>add route-indicator component (<a href="https://github.com/Linkontoask/v-easy-components/commit/bc23211359703a740d2de516bcb9f107eaaf3387" target="_blank" rel="noopener">bc23211</a>)</li>
-<li>add scroll-bar components (<a href="https://github.com/Linkontoask/v-easy-components/commit/22e7d379cb48583266a582b42b1826e64b0e2fb2" target="_blank" rel="noopener">22e7d37</a>)</li>
-<li>add steps and add button loading status (<a href="https://github.com/Linkontoask/v-easy-components/commit/64a806a69c92e52684117889e28a7f7f4479afb5" target="_blank" rel="noopener">64a806a</a>)</li>
-<li>add ve-icon component (<a href="https://github.com/Linkontoask/v-easy-components/commit/720d878311403a0f057a4d95b35444b89afcfa92" target="_blank" rel="noopener">720d878</a>)</li>
-<li>business route-indicator docs (<a href="https://github.com/Linkontoask/v-easy-components/commit/0e2e8e1ddbe9e66ed1822ccae814f0323b4acf62" target="_blank" rel="noopener">0e2e8e1</a>)</li>
-<li>color-picker 30% (<a href="https://github.com/Linkontoask/v-easy-components/commit/4ce270458c23185ccbab79e6a073f44baf593e78" target="_blank" rel="noopener">4ce2704</a>)</li>
-<li>color-picker support tip command (<a href="https://github.com/Linkontoask/v-easy-components/commit/8282fc9553a0c1492332c4fcf18202c427a1d555" target="_blank" rel="noopener">8282fc9</a>)</li>
-<li>commit check (<a href="https://github.com/Linkontoask/v-easy-components/commit/045a59a05fd02f97228be83589bb0d7b80217b62" target="_blank" rel="noopener">045a59a</a>)</li>
-<li>steps supports add nav-class-name property (<a href="https://github.com/Linkontoask/v-easy-components/commit/75d5d3fe7bf4089d84854e04bb43d937784f13bb" target="_blank" rel="noopener">75d5d3f</a>)</li>
-<li>steps supports normal active (<a href="https://github.com/Linkontoask/v-easy-components/commit/f0259b5f287c0f6a2642516996ec2df4015cb4fc" target="_blank" rel="noopener">f0259b5</a>)</li>
-<li>steps supports placement top (<a href="https://github.com/Linkontoask/v-easy-components/commit/ec390b6c608712cbc93f0706952149637dcf85aa" target="_blank" rel="noopener">ec390b6</a>)</li>
-<li>Submit log automation and remove node-notifier (<a href="https://github.com/Linkontoask/v-easy-components/commit/8df5303926b3e8bf5f19783b18715fbd42c9ce89" target="_blank" rel="noopener">8df5303</a>)</li>
-<li>support ESModule (<a href="https://github.com/Linkontoask/v-easy-components/commit/89da4fdbcaeb2dfd761b58150163e66ad10ba161" target="_blank" rel="noopener">89da4fd</a>)</li>
-<li>support icon other css (<a href="https://github.com/Linkontoask/v-easy-components/commit/3605b4ee7a63e4ee8138a4500a9b606a8b9dd4f3" target="_blank" rel="noopener">3605b4e</a>)</li>
-<li>support jsnext:main key (<a href="https://github.com/Linkontoask/v-easy-components/commit/a6e64b75f980e356b2df9e3867175ba9c5afec49" target="_blank" rel="noopener">a6e64b7</a>)</li>
-<li>Support v-image upload value in img tag (<a href="https://github.com/Linkontoask/v-easy-components/commit/1eb1355f23ecd05644b354d0ebc2d7653441388b" target="_blank" rel="noopener">1eb1355</a>)</li>
-<li>supports button size (<a href="https://github.com/Linkontoask/v-easy-components/commit/a78055047fc852ae2584a1ca13556098e75ead55" target="_blank" rel="noopener">a780550</a>)</li>
-<li>tip support effect property (<a href="https://github.com/Linkontoask/v-easy-components/commit/25de52c4131481df494e9aa9b48a6d5a71f4ed40" target="_blank" rel="noopener">25de52c</a>)</li>
-<li>Tool-tip Add autoRemoveTip attribute (<a href="https://github.com/Linkontoask/v-easy-components/commit/8131d45d09ef8dcb6041c1fb18321bf56093780d" target="_blank" rel="noopener">8131d45</a>)</li>
-<li>update components.json (<a href="https://github.com/Linkontoask/v-easy-components/commit/1e999aeeceb0700363a380611a6f0c078ff73d1a" target="_blank" rel="noopener">1e999ae</a>)</li>
-<li>v-image non-img element supports destroying elements when unbinding (<a href="https://github.com/Linkontoask/v-easy-components/commit/fe9f032c061a5c486267198a02b58bc205992617" target="_blank" rel="noopener">fe9f032</a>)</li>
-<li>v-loading-preload support Modifier (<a href="https://github.com/Linkontoask/v-easy-components/commit/4233d24c62ec78d6742e98a4decf902d668420b3" target="_blank" rel="noopener">4233d24</a>)</li>
-<li>ve-input support type of number (<a href="https://github.com/Linkontoask/v-easy-components/commit/96109d344e072468fbc13d033c72b505592c9dc4" target="_blank" rel="noopener">96109d3</a>)</li>
+<li>add base color-picker component (<a href="https://github.com/Linkontoask/v-easy-components/commit/40be4a7a55652da2e36012e8b797751a88b694e6">40be4a7</a>)</li>
+<li>Add ESLint function (<a href="https://github.com/Linkontoask/v-easy-components/commit/0e49e9cdfdb6724b7531386cbbdc06806240266e">0e49e9c</a>)</li>
+<li>add route-indicator component (<a href="https://github.com/Linkontoask/v-easy-components/commit/bc23211359703a740d2de516bcb9f107eaaf3387">bc23211</a>)</li>
+<li>add scroll-bar components (<a href="https://github.com/Linkontoask/v-easy-components/commit/22e7d379cb48583266a582b42b1826e64b0e2fb2">22e7d37</a>)</li>
+<li>add steps and add button loading status (<a href="https://github.com/Linkontoask/v-easy-components/commit/64a806a69c92e52684117889e28a7f7f4479afb5">64a806a</a>)</li>
+<li>add ve-icon component (<a href="https://github.com/Linkontoask/v-easy-components/commit/720d878311403a0f057a4d95b35444b89afcfa92">720d878</a>)</li>
+<li>business route-indicator docs (<a href="https://github.com/Linkontoask/v-easy-components/commit/0e2e8e1ddbe9e66ed1822ccae814f0323b4acf62">0e2e8e1</a>)</li>
+<li>color-picker 30% (<a href="https://github.com/Linkontoask/v-easy-components/commit/4ce270458c23185ccbab79e6a073f44baf593e78">4ce2704</a>)</li>
+<li>color-picker support tip command (<a href="https://github.com/Linkontoask/v-easy-components/commit/8282fc9553a0c1492332c4fcf18202c427a1d555">8282fc9</a>)</li>
+<li>commit check (<a href="https://github.com/Linkontoask/v-easy-components/commit/045a59a05fd02f97228be83589bb0d7b80217b62">045a59a</a>)</li>
+<li>steps supports add nav-class-name property (<a href="https://github.com/Linkontoask/v-easy-components/commit/75d5d3fe7bf4089d84854e04bb43d937784f13bb">75d5d3f</a>)</li>
+<li>steps supports normal active (<a href="https://github.com/Linkontoask/v-easy-components/commit/f0259b5f287c0f6a2642516996ec2df4015cb4fc">f0259b5</a>)</li>
+<li>steps supports placement top (<a href="https://github.com/Linkontoask/v-easy-components/commit/ec390b6c608712cbc93f0706952149637dcf85aa">ec390b6</a>)</li>
+<li>Submit log automation and remove node-notifier (<a href="https://github.com/Linkontoask/v-easy-components/commit/8df5303926b3e8bf5f19783b18715fbd42c9ce89">8df5303</a>)</li>
+<li>support ESModule (<a href="https://github.com/Linkontoask/v-easy-components/commit/89da4fdbcaeb2dfd761b58150163e66ad10ba161">89da4fd</a>)</li>
+<li>support icon other css (<a href="https://github.com/Linkontoask/v-easy-components/commit/3605b4ee7a63e4ee8138a4500a9b606a8b9dd4f3">3605b4e</a>)</li>
+<li>support jsnext:main key (<a href="https://github.com/Linkontoask/v-easy-components/commit/a6e64b75f980e356b2df9e3867175ba9c5afec49">a6e64b7</a>)</li>
+<li>Support v-image upload value in img tag (<a href="https://github.com/Linkontoask/v-easy-components/commit/1eb1355f23ecd05644b354d0ebc2d7653441388b">1eb1355</a>)</li>
+<li>supports button size (<a href="https://github.com/Linkontoask/v-easy-components/commit/a78055047fc852ae2584a1ca13556098e75ead55">a780550</a>)</li>
+<li>tip support effect property (<a href="https://github.com/Linkontoask/v-easy-components/commit/25de52c4131481df494e9aa9b48a6d5a71f4ed40">25de52c</a>)</li>
+<li>Tool-tip Add autoRemoveTip attribute (<a href="https://github.com/Linkontoask/v-easy-components/commit/8131d45d09ef8dcb6041c1fb18321bf56093780d">8131d45</a>)</li>
+<li>update components.json (<a href="https://github.com/Linkontoask/v-easy-components/commit/1e999aeeceb0700363a380611a6f0c078ff73d1a">1e999ae</a>)</li>
+<li>v-image non-img element supports destroying elements when unbinding (<a href="https://github.com/Linkontoask/v-easy-components/commit/fe9f032c061a5c486267198a02b58bc205992617">fe9f032</a>)</li>
+<li>v-loading-preload support Modifier (<a href="https://github.com/Linkontoask/v-easy-components/commit/4233d24c62ec78d6742e98a4decf902d668420b3">4233d24</a>)</li>
+<li>ve-input support type of number (<a href="https://github.com/Linkontoask/v-easy-components/commit/96109d344e072468fbc13d033c72b505592c9dc4">96109d3</a>)</li>
 </ul>
-<p><a href="https://github.com/Linkontoask/v-easy-components/blob/dev-2020/CHANGELOG.md#121-2020-07-12" target="_blank" rel="noopener">最新日志</a></p>
+<p><a href="https://github.com/Linkontoask/v-easy-components/blob/dev-2020/CHANGELOG.md#121-2020-07-12">最新日志</a></p>
 
-      
     </div>
+
     
     
     
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/vue-component/" rel="tag"># vue component</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2020/07/08/centos%E4%B8%ADservice%E7%9A%84%E9%85%8D%E7%BD%AE-%E8%B8%A9%E5%9D%91/" rel="next" title="centos中service的配置-踩坑">
-                <i class="fa fa-chevron-left"></i> centos中service的配置-踩坑
-              </a>
-            
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/vue-component/" rel="tag"># vue component</a>
           </div>
 
-          <span class="post-nav-divider"></span>
+        
 
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/" rel="prev" title="vue2.x与vue-next速度对比（浏览器侧）">
-                vue2.x与vue-next速度对比（浏览器侧） <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/08/centos%E4%B8%ADservice%E7%9A%84%E9%85%8D%E7%BD%AE-%E8%B8%A9%E5%9D%91/" rel="prev" title="centos中service的配置-踩坑">
+      <i class="fa fa-chevron-left"></i> centos中service的配置-踩坑
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/" rel="next" title="vue2.x与vue-next速度对比（浏览器侧）">
+      vue2.x与vue-next速度对比（浏览器侧） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
   </article>
+  
+  
+  
 
-
-
-    <div class="post-spread">
-      
-    </div>
-  </div>
 
 
           </div>
           
 
-
-          
-
-  
-
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
-
-      <section class="site-overview-wrap sidebar-panel">
-        <div class="site-overview">
-          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-            
-              <p class="site-author-name" itemprop="name">Link</p>
-              <p class="site-description motion-element" itemprop="description">坚持每天进步一点</p>
-          </div>
-
-          <nav class="site-state motion-element">
-
-            
-              <div class="site-state-item site-state-posts">
-              
-                <a href="/archives/%20%7C%7C%20archive">
-              
-                  <span class="site-state-item-count">20</span>
-                  <span class="site-state-item-name">posts</span>
-                </a>
-              </div>
-            
-
-            
-
-            
-              
-              
-              <div class="site-state-item site-state-tags">
-                
-                  <span class="site-state-item-count">13</span>
-                  <span class="site-state-item-name">tags</span>
-                
-              </div>
-            
-
-          </nav>
-
-          
-
-          
-
-          
-          
-
-          
-          
-
-          
-
-        </div>
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一步一步实现vue2-x版本的IP输入框"><span class="nav-number">1.</span> <span class="nav-text">一步一步实现vue2-x版本的IP输入框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.0.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持哪些功能呢？"><span class="nav-number">1.0.2.</span> <span class="nav-text">支持哪些功能呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将来要支持的功能"><span class="nav-number">1.0.3.</span> <span class="nav-text">将来要支持的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在哪里可以看到源码？"><span class="nav-number">1.0.4.</span> <span class="nav-text">在哪里可以看到源码？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改日志"><span class="nav-number">1.0.5.</span> <span class="nav-text">修改日志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-1-2020-07-12"><span class="nav-number">1.1.</span> <span class="nav-text">1.2.1 (2020-07-12)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bug-Fixes"><span class="nav-number">1.1.1.</span> <span class="nav-text">Bug Fixes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features"><span class="nav-number">1.1.2.</span> <span class="nav-text">Features</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-1-2020-07-06"><span class="nav-number">1.2.</span> <span class="nav-text">1.1.1 (2020-07-06)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bug-Fixes-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">Bug Fixes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">Features</span></a></li></ol></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Link</span>
-
-  
-</div>
-
-
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
-
-
-
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
-
-
-
-
-        
-
-
-
-
-
-
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-
-    
-
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
   }
 </script>
 
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          المحتويات
+        </li>
+        <li class="sidebar-nav-overview">
+          عام
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一步一步实现vue2-x版本的IP输入框"><span class="nav-number">1.</span> <span class="nav-text">一步一步实现vue2-x版本的IP输入框</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路"><span class="nav-number">1.0.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持哪些功能呢？"><span class="nav-number">1.0.2.</span> <span class="nav-text">支持哪些功能呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将来要支持的功能"><span class="nav-number">1.0.3.</span> <span class="nav-text">将来要支持的功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在哪里可以看到源码？"><span class="nav-number">1.0.4.</span> <span class="nav-text">在哪里可以看到源码？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改日志"><span class="nav-number">1.0.5.</span> <span class="nav-text">修改日志</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-1-2020-07-12"><span class="nav-number">1.1.</span> <span class="nav-text">1.2.1 (2020-07-12)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bug-Fixes"><span class="nav-number">1.1.1.</span> <span class="nav-text">Bug Fixes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features"><span class="nav-number">1.1.2.</span> <span class="nav-text">Features</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-1-2020-07-06"><span class="nav-number">1.2.</span> <span class="nav-text">1.1.1 (2020-07-06)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bug-Fixes-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">Bug Fixes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">Features</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Link</p>
+  <div class="site-description" itemprop="description">坚持每天进步一点，多学一点“装”的技术，不止步与现状。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">المقالات</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">الوسوم</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Link</span>
+</div>
+  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
 
 
 
 
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
 
 
 
@@ -646,111 +464,8 @@
 
 
 
-  
-  
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
 
 
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
-
-
-
-  
-
-
-  
-
-
-
-
-	
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
 
   
 
