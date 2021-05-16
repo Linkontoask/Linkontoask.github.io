@@ -1,16 +1,12 @@
 # Site
-title: 我的博客
+title: 记录与分享
 subtitle: 'Link'
-description: '坚持每天进步一点'
-keywords: 博客
+description: '坚持每天进步一点，多学一点“装”的技术，不止步与现状。'
+keywords: blog,Link
 author: Link
 language: zh-cn
 
-url: https://linkorg.club
+url: https://github.com/Linkontoask
 root: /
 
-menu:
-  home: /
-  archives: /archives
-
-theme: hexo-theme-next-5.1.4
+theme: hexo-theme-next
