@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-cn">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -41,7 +41,7 @@
     sidebar: "",
     isHome : true,
     isPost : false,
-    lang   : 'zh-cn'
+    lang   : 'zh-CN'
   };
 </script>
 
@@ -85,7 +85,7 @@
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="تشغيل شريط التصفح">
+    <div class="toggle" aria-label="切换导航栏">
       <span class="toggle-line toggle-line-first"></span>
       <span class="toggle-line toggle-line-middle"></span>
       <span class="toggle-line toggle-line-last"></span>
@@ -115,12 +115,12 @@
   <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>الأرشيفات</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
   </ul>
@@ -149,7 +149,95 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Link">
+      <meta itemprop="description" content="坚持每天进步一点，多学一点“装”的技术，不止步与现状。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="记录与分享">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/27/vue2-x%E4%B8%8Evue-next%E9%80%9F%E5%BA%A6%E5%AF%B9%E6%AF%94%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BE%A7%EF%BC%89/" class="post-title-link" itemprop="url">vue2.x与vue-next速度对比（浏览器侧）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-27 17:55:58" itemprop="dateCreated datePublished" datetime="2020-07-27T17:55:58+00:00">2020-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="vue2-x与vue-next速度对比（浏览器侧）"><a href="#vue2-x与vue-next速度对比（浏览器侧）" class="headerlink" title="vue2.x与vue-next速度对比（浏览器侧）"></a>vue2.x与vue-next速度对比（浏览器侧）</h1><p>测试环境：</p>
+<ul>
+<li>Chrome 84.0.4147.89 (x64)</li>
+<li>windows10</li>
+</ul>
+<p>测试步骤：</p>
+<ul>
+<li>使用内置的<code>h</code>渲染。</li>
+<li>使用五层VNode，只包裹文本节点，遍历10000次。</li>
+</ul>
+<ul>
+<li><p>vue2.x 测试代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">'#root'</span>,</span><br><span class="line">    render(h) &#123;</span><br><span class="line">        <span class="keyword">let</span> index = <span class="number">5</span>, old = h(<span class="string">'div'</span>, <span class="literal">null</span>, <span class="string">'Link'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (index &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            old = h(<span class="string">'div'</span>, <span class="literal">null</span>, [old])</span><br><span class="line">            index--</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">const</span> a = <span class="built_in">Array</span>(<span class="number">10000</span>).fill(<span class="number">0</span>).map(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> old</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> h(<span class="string">'div'</span>, &#123;&#125;, a)</span><br><span class="line">    &#125;,</span><br><span class="line">    created() &#123;</span><br><span class="line">        <span class="built_in">console</span>.time(<span class="string">'render'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    mounted() &#123;</span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'render'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>vue-next 测试代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> app = createApp(&#123;</span><br><span class="line">    setup() &#123;</span><br><span class="line"></span><br><span class="line">      <span class="built_in">console</span>.time(<span class="string">'render'</span>)</span><br><span class="line">      onMounted(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.timeEnd(<span class="string">'render'</span>)</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">let</span> index = <span class="number">5</span>, old = h(<span class="string">'div'</span>, &#123;&#125;, <span class="string">'Link'</span>)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">while</span> (index &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        old = h(<span class="string">'div'</span>, &#123;&#125;, old)</span><br><span class="line">        index--</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">const</span> a = <span class="built_in">Array</span>(<span class="number">10000</span>).fill(<span class="number">0</span>).map(<span class="function"><span class="params">i</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> old</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> h(<span class="string">'div'</span>, &#123;&#125;, a)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">&#125;).mount(<span class="string">'#root'</span>)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="最终结果"><a href="#最终结果" class="headerlink" title="最终结果"></a>最终结果</h2><ul>
+<li>vue2.x <code>331.082275390625ms</code></li>
+<li>vue-next <code>267.6630859375ms</code></li>
+</ul>
+<p>注意：以上数据仅为平均数据（5层VNode），只能说明<code>vue</code>版本升级后能够提高渲染速度。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/07/12/%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%9E%E7%8E%B0vue2-x%E7%89%88%E6%9C%AC%E7%9A%84IP%E8%BE%93%E5%85%A5%E6%A1%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -172,16 +260,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-07-12 11:34:32" itemprop="dateCreated datePublished" datetime="2020-07-12T11:34:32+00:00">2020-07-12</time>
+              <time title="创建时间：2020-07-12 11:34:32" itemprop="dateCreated datePublished" datetime="2020-07-12T11:34:32+00:00">2020-07-12</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -299,7 +387,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/07/08/centos%E4%B8%ADservice%E7%9A%84%E9%85%8D%E7%BD%AE-%E8%B8%A9%E5%9D%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -322,16 +410,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-07-08 18:03:10" itemprop="dateCreated datePublished" datetime="2020-07-08T18:03:10+00:00">2020-07-08</time>
+              <time title="创建时间：2020-07-08 18:03:10" itemprop="dateCreated datePublished" datetime="2020-07-08T18:03:10+00:00">2020-07-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -368,7 +456,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/07/07/n2n%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%B1%80%E5%9F%9F%E7%BD%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -391,16 +479,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-07-07 16:02:22" itemprop="dateCreated datePublished" datetime="2020-07-07T16:02:22+00:00">2020-07-07</time>
+              <time title="创建时间：2020-07-07 16:02:22" itemprop="dateCreated datePublished" datetime="2020-07-07T16:02:22+00:00">2020-07-07</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -482,7 +570,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/07/02/shell%E4%B8%ADexpr%E6%9B%BF%E6%8D%A2%E8%AF%AD%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -505,16 +593,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-07-02 15:08:40" itemprop="dateCreated datePublished" datetime="2020-07-02T15:08:40+00:00">2020-07-02</time>
+              <time title="创建时间：2020-07-02 15:08:40" itemprop="dateCreated datePublished" datetime="2020-07-02T15:08:40+00:00">2020-07-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -555,7 +643,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/07/02/shell%E4%B8%ADif%E7%9A%84%E7%94%A8%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -578,16 +666,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-07-02 14:12:10" itemprop="dateCreated datePublished" datetime="2020-07-02T14:12:10+00:00">2020-07-02</time>
+              <time title="创建时间：2020-07-02 14:12:10" itemprop="dateCreated datePublished" datetime="2020-07-02T14:12:10+00:00">2020-07-02</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -625,7 +713,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/06/29/python%E4%B8%AD%E4%BD%BF%E7%94%A8pillow/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -648,16 +736,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-06-29 11:52:59" itemprop="dateCreated datePublished" datetime="2020-06-29T11:52:59+00:00">2020-06-29</time>
+              <time title="创建时间：2020-06-29 11:52:59" itemprop="dateCreated datePublished" datetime="2020-06-29T11:52:59+00:00">2020-06-29</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -821,7 +909,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/06/11/promise-allsettled/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -844,16 +932,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-06-11 15:45:12" itemprop="dateCreated datePublished" datetime="2020-06-11T15:45:12+00:00">2020-06-11</time>
+              <time title="创建时间：2020-06-11 15:45:12" itemprop="dateCreated datePublished" datetime="2020-06-11T15:45:12+00:00">2020-06-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -894,7 +982,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/06/10/cmder-ev/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -917,16 +1005,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-06-10 09:40:56" itemprop="dateCreated datePublished" datetime="2020-06-10T09:40:56+00:00">2020-06-10</time>
+              <time title="创建时间：2020-06-10 09:40:56" itemprop="dateCreated datePublished" datetime="2020-06-10T09:40:56+00:00">2020-06-10</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -964,7 +1052,7 @@
       
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/06/03/mongoDB-windows-%E6%9C%8D%E5%8A%A1%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -987,16 +1075,16 @@
               <span class="post-meta-item-icon">
                 <i class="far fa-calendar"></i>
               </span>
-              <span class="post-meta-item-text">نُشر في</span>
+              <span class="post-meta-item-text">发表于</span>
 
-              <time title="أُنشأ: 2020-06-03 16:26:28" itemprop="dateCreated datePublished" datetime="2020-06-03T16:26:28+00:00">2020-06-03</time>
+              <time title="创建时间：2020-06-03 16:26:28" itemprop="dateCreated datePublished" datetime="2020-06-03T16:26:28+00:00">2020-06-03</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-07 03:46:43" itemprop="dateModified" datetime="2021-07-07T03:46:43+00:00">2021-07-07</time>
               </span>
 
           
@@ -1033,103 +1121,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-cn">
-    <link itemprop="mainEntityOfPage" href="https://github.com/Linkontoask/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Link">
-      <meta itemprop="description" content="坚持每天进步一点，多学一点“装”的技术，不止步与现状。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="记录与分享">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/23/%E8%B4%AA%E5%90%83%E8%9B%87/" class="post-title-link" itemprop="url">贪吃蛇</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">نُشر في</span>
-
-              <time title="أُنشأ: 2020-05-23 14:52:39" itemprop="dateCreated datePublished" datetime="2020-05-23T14:52:39+00:00">2020-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">عُدل في</span>
-                <time title="عُدل: 2021-05-16 05:05:58" itemprop="dateModified" datetime="2021-05-16T05:05:58+00:00">2021-05-16</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://pic3.zhimg.com/v2-5d0519553991b60fb0d5b44d65813067_r.jpg" alt="预览"></p>
-<h3 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h3><ul>
-<li>基本玩法</li>
-<li>音乐控制（速度）</li>
-<li>支持升级</li>
-<li>移动端支持</li>
-</ul>
-<p><img src="https://pic1.zhimg.com/v2-d0169445601156e730351ea0ac294db8_b.webp" alt="动图"></p>
-<p><a href="https://linkorg.club/www/music-snake/" target="_blank" rel="noopener">直接开始试玩</a></p>
-<p>我们从功能点开始分批讲解其中用到的技术，希望阅读完这篇文章，你也能写一个贪吃蛇来满足自己写游戏的欲望。（我的出发点就是无聊）。</p>
-<h4 id="基本玩法"><a href="#基本玩法" class="headerlink" title="基本玩法"></a>基本玩法</h4><p>实现步骤：</p>
-<ul>
-<li>第一步，写一个绘制类，用来绘制蛇和食物</li>
-</ul>
-<p><img src="https://pic3.zhimg.com/80/v2-19b34fe29e4f0a53b545e5d00cf14b82_720w.jpg" alt=""></p>
-<ul>
-<li>第二步，实现蛇类。包括升级，颜色。这里的类只是蛇的一节身体，更多的身体组合成一条蛇</li>
-</ul>
-<p><img src="https://pic4.zhimg.com/80/v2-b59375a022108f6ca4e0c3543b5630b3_720w.jpg" alt=""></p>
-<ul>
-<li>第三步，实现食物类</li>
-</ul>
-<p><img src="https://pic2.zhimg.com/80/v2-deb693b54eefdbbab7f5275463440ff1_720w.jpg" alt=""></p>
-<p>以上都写完基本的东西已经准备好了，然后就是如何把一节身体组合在一起，形成一条蛇，然后还要运动，吃食物。</p>
-<p><img src="https://pic1.zhimg.com/80/v2-0d3382021618838e7dbde13a72e47610_720w.jpg" alt=""></p>
-<p><img src="https://pic3.zhimg.com/80/v2-a0da186d8d72f59ecffc2e9412b52fa6_720w.jpg" alt=""></p>
-<p>最后当然还有一个控制器类</p>
-<p><img src="https://pic3.zhimg.com/80/v2-03420dea3a4e799beaa400961881499e_720w.jpg" alt=""></p>
-<p>以上就已经实现了蛇的基本玩法。具体代码可以转到仓库<a href="https://github.com/Linkontoask/music-snake">https://github.com/Linkontoask/music-snake</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="الصفحة السابقة"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1173,10 +1168,10 @@
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
-          المحتويات
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          عام
+          站点概览
         </li>
       </ul>
 
@@ -1195,13 +1190,13 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
-          <span class="site-state-item-name">المقالات</span>
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">الوسوم</span>
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -1233,7 +1228,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Link</span>
 </div>
-  <div class="powered-by">تطبيق الموقع <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
 
         
